@@ -6,6 +6,9 @@ parameters:
     default: $(System.DefaultWorkingDirectory)
 
 steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: 'pypy3'
   - task: PythonScript@0
     displayName: DebugPython
     inputs:
