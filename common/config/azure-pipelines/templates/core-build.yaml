@@ -6,6 +6,8 @@ parameters:
     default: $(System.DefaultWorkingDirectory)
 
 steps:
+  - script: python --version
+    displayName: run python in script
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '3.x'
