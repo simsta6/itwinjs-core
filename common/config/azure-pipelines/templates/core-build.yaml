@@ -8,9 +8,10 @@ parameters:
 steps:
   # - script: python --version
   #   displayName: run python in script
-  # - task: UsePythonVersion@0
-  #   inputs:
-  #     versionSpec: 'pypy3'
+  - task: UsePythonVersion@0
+    displayName: Use python 3
+    inputs:
+      versionSpec: 3.x
   # - task: PythonScript@0
   #   displayName: DebugPython
   #   inputs:
