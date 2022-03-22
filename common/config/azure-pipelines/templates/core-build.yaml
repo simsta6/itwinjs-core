@@ -8,17 +8,17 @@ parameters:
 steps:
   # - script: python --version
   #   displayName: run python in script
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: 'pypy3'
-  - task: PythonScript@0
-    displayName: DebugPython
-    inputs:
-      scriptSource: inline
-      script: |
-        import sys
-        print("Hello World!")
-        print("Using python version " + ".".join(str(x) for x in sys.version_info[:3]))
+  # - task: UsePythonVersion@0
+  #   inputs:
+  #     versionSpec: 'pypy3'
+  # - task: PythonScript@0
+  #   displayName: DebugPython
+  #   inputs:
+  #     scriptSource: inline
+  #     script: |
+  #       import sys
+  #       print("Hello World!")
+  #       print("Using python version " + ".".join(str(x) for x in sys.version_info[:3]))
   - script: node common/scripts/install-run-rush.js check
     displayName: rush check
     workingDirectory: ${{ parameters.workingDir }}
