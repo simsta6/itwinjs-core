@@ -10,6 +10,9 @@ import classnames from "classnames";
 import * as React from "react";
 import { Input, InputProps } from "./Input";
 import { LabeledComponentProps, MessagedComponentProps } from "./LabeledComponentProps";
+import { SvgStatusError, SvgStatusSuccess, SvgStatusWarning } from "@itwin/itwinui-icons-react";
+import { Icon } from "../icons/IconComponent";
+import { InputStatus } from "./InputStatus";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -42,8 +45,14 @@ export function LabeledInput(props: LabeledInputProps) {    // eslint-disable-li
       }
       <div className={classnames("input", { "with-icon": !!status })}>
         <Input disabled={disabled} className={inputClassName} style={inputStyle} {...otherProps} />
-        {status &&
-          <i className={classnames("icon", `icon-status-${status}`)} />
+        {status === InputStatus.Error &&
+          <Icon className={classnames("icon")} iconSpec={<SvgStatusError />} />
+        }
+        {status === InputStatus.Success &&
+          <Icon className={classnames("icon")} iconSpec={<SvgStatusSuccess />} />
+        }
+        {status === InputStatus.Warning &&
+          <Icon className={classnames("icon")} iconSpec={<SvgStatusWarning />} />
         }
       </div>
       {message &&

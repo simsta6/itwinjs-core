@@ -15,6 +15,7 @@ import { Checkbox } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 import { Indicator } from "./Indicator";
 import { StatusFieldProps } from "./StatusFieldProps";
+import { SvgWindowSettings } from "@itwin/itwinui-icons-react";
 
 interface ViewAttributesStatusFieldState {
   viewFlags: ViewFlagProps;
@@ -112,7 +113,7 @@ export class ViewAttributesStatusField extends React.Component<StatusFieldProps,
     return (
       <>
         <Indicator
-          iconName="icon-window-settings"
+          iconSpec={<SvgWindowSettings />}
           opened={isOpen}
           toolTip={this._title}
           dialog={<Dialog

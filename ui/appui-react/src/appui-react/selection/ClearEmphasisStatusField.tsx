@@ -14,6 +14,7 @@ import { Indicator } from "../statusfields/Indicator";
 import { StatusFieldProps } from "../statusfields/StatusFieldProps";
 import { UiFramework } from "../UiFramework";
 import { HideIsolateEmphasizeActionHandler } from "./HideIsolateEmphasizeManager";
+import { SvgVisibilityShow } from "@itwin/itwinui-icons-react";
 
 /** Clear Emphasis StatusField Props
  * @beta
@@ -64,7 +65,7 @@ export function ClearEmphasisStatusField(props: ClearEmphasisStatusFieldProps) {
   };
 
   return (
-    <Indicator toolTip={toolTip} className={classes} opened={false} onClick={clearEmphasize} iconName="icon-visibility"
+    <Indicator toolTip={toolTip} className={classes} opened={false} onClick={clearEmphasize} iconSpec={<SvgVisibilityShow />}
       isInFooterMode={props.isInFooterMode} />
   );
 }

@@ -10,9 +10,9 @@ import "./StandardRotationNavigationAid.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { StandardViewId } from "@itwin/core-frontend";
-import { RelativePosition } from "@itwin/appui-abstract";
+import { IconSpecUtilities, RelativePosition } from "@itwin/appui-abstract";
 import { ViewportComponentEvents } from "@itwin/imodel-components-react";
-import { CommonProps, Icon, Popup } from "@itwin/core-react";
+import { CommonProps, Icon, IconSpec, Popup } from "@itwin/core-react";
 import {
   containHorizontally, GroupColumn as NZ_Column, ExpandableButton as NZ_Expandable, ToolbarIcon as NZ_Icon, GroupTool as NZ_Item, Group as NZ_Tray,
   withContainIn,
@@ -20,6 +20,14 @@ import {
 import { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
 import { UiFramework } from "../UiFramework";
 import { NavigationAidControl } from "./NavigationAidControl";
+import svgCubeFacesTop from "@bentley/icons-generic/icons/cube-faces/top.svg";
+import svgCubeFacesBottom from "@bentley/icons-generic/icons/cube-faces/bottom.svg";
+import svgCubeFacesLeft from "@bentley/icons-generic/icons/cube-faces/left.svg";
+import svgCubeFacesRight from "@bentley/icons-generic/icons/cube-faces/right.svg";
+import svgCubeFacesFront from "@bentley/icons-generic/icons/cube-faces/front.svg";
+import svgCubeFacesRear from "@bentley/icons-generic/icons/cube-faces/rear.svg";
+import svgCubeFacesIsoLeft from "@bentley/icons-generic/icons/cube-faces/iso-left.svg";
+import svgCubeFacesIsoRight from "@bentley/icons-generic/icons/cube-faces/iso-right.svg";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, deprecation/deprecation
 const NZ_ContainedTray = withContainIn(NZ_Tray);
@@ -40,6 +48,7 @@ export class StandardRotationNavigationAidControl extends NavigationAidControl {
 export interface RotationData {
   label: string;
   iconClassName: string;
+  iconsSpec?: IconSpec;
 }
 
 /** @internal */
@@ -65,27 +74,35 @@ export class StandardRotationNavigationAid extends React.Component<CommonProps, 
       {
         label: UiFramework.translate("rotations.top"),
         iconClassName: "icon-cube-faces-top",
+        iconsSpec: IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesTop),
       }, {
         label: UiFramework.translate("rotations.bottom"),
         iconClassName: "icon-cube-faces-bottom",
+        iconsSpec: IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesBottom),
       }, {
         label: UiFramework.translate("rotations.left"),
         iconClassName: "icon-cube-faces-left",
+        iconsSpec: IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesLeft),
       }, {
         label: UiFramework.translate("rotations.right"),
         iconClassName: "icon-cube-faces-right",
+        iconsSpec: IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesRight),
       }, {
         label: UiFramework.translate("rotations.front"),
         iconClassName: "icon-cube-faces-front",
+        iconsSpec: IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesFront),
       }, {
         label: UiFramework.translate("rotations.rear"),
         iconClassName: "icon-cube-faces-rear",
+        iconsSpec: IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesRear),
       }, {
         label: UiFramework.translate("rotations.isoLeft"),
         iconClassName: "icon-cube-faces-iso-left",
+        iconsSpec: IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesIsoLeft),
       }, {
         label: UiFramework.translate("rotations.isoRight"),
         iconClassName: "icon-cube-faces-iso-right",
+        iconsSpec: IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesIsoRight),
       },
     ];
     this.state = {
@@ -112,7 +129,7 @@ export class StandardRotationNavigationAid extends React.Component<CommonProps, 
           <NZ_Icon
             className={"icon-button"}
             icon={
-              <span className={classnames("three-d-icon", "icon", this.state.list[this.state.selected].iconClassName)} />
+              <span className={classnames("three-d-icon", "icon")}><Icon iconSpec={this.state.list[this.state.selected].iconsSpec}/></span>
             }
             onClick={this._toggleIsExpanded}
             title={this._title}
@@ -168,7 +185,7 @@ export class StandardRotationNavigationAid extends React.Component<CommonProps, 
                   key={itemIndex.toString()}
                   ref={itemIndex.toString()}
                   label={item.label}
-                  icon={<Icon iconSpec={item.iconClassName} />}
+                  icon={<Icon iconSpec={item.iconsSpec} />}
                   isActive={this.state.selected === itemIndex}
                   onClick={() => this._handleListItemClicked(itemIndex)}
                 >

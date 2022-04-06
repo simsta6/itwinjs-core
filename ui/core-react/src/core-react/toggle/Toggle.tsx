@@ -11,6 +11,8 @@ import classnames from "classnames";
 import * as React from "react";
 import { CommonProps } from "../utils/Props";
 import { useRefs } from "../utils/hooks/useRefs";
+import { SvgCheckmark } from "@itwin/itwinui-icons-react";
+import { Icon } from "../icons/IconComponent";
 
 /** Toggle display types
  * @public
@@ -122,7 +124,7 @@ const ForwardRefToggle = React.forwardRef<HTMLInputElement, ToggleProps>(   // e
     const halfHeight = height / 2;
     const checkmarkClassName = classnames(
       "core-toggle-checkmark",
-      "icon", "icon-checkmark",
+      "icon",
       showCheckmark && "core-visible",
       toggling && "core-toggling",
     );
@@ -153,7 +155,7 @@ const ForwardRefToggle = React.forwardRef<HTMLInputElement, ToggleProps>(   // e
           onChange={handleChange} onBlur={handleCheckboxBlur}
           title={props.title} />
         <span className="core-toggle-background" />
-        <span className={checkmarkClassName} />
+        <span className={checkmarkClassName}><Icon iconSpec={<SvgCheckmark />} /></span>
         <span className={handleClassName} style={toggleHandleStyle} />
       </label>
     );

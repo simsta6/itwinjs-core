@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { using } from "@itwin/core-bentley";
 import { MessageSeverity, PropertyRecord, SpecialKey } from "@itwin/appui-abstract";
-import { CommonProps, ContextMenu, ContextMenuItem, DialogButtonType, MessageBox, SplitButton, withOnOutsideClick } from "@itwin/core-react";
+import { CommonProps, ContextMenu, ContextMenuItem, DialogButtonType, Icon, IconSpec, MessageBox, SplitButton, withOnOutsideClick } from "@itwin/core-react";
 import { PropertyValueRendererManager } from "../properties/ValueRendererManager";
 import {
   DelayLoadedTreeNodeItem, ImmediatelyLoadedTreeNodeItem, isTreeDataProviderInterface, TreeDataProvider, TreeNodeItem,
@@ -22,6 +22,7 @@ import {
 } from "./BeInspireTree";
 import { BreadcrumbPath, BreadcrumbUpdateEventArgs } from "./BreadcrumbPath";
 import { getPropertyRecordAsString } from "./BreadcrumbTreeUtils";
+import { SvgShare, SvgSortUp } from "@itwin/itwinui-icons-react";
 
 /* eslint-disable deprecation/deprecation */
 // cspell:ignore itree autocompleting
@@ -768,9 +769,9 @@ class BreadcrumbDropdown extends React.Component<BreadcrumbDropdownProps> {
           <div data-testid="components-breadcrumb-up-dir"
             className={classnames(
               "components-breadcrumb-up-dir",
-              "icon", "icon-sort-up",
+              "icon",
               { root: this.props.node === undefined })
-            } onClick={this._handleUpClick} role="button" tabIndex={-1} />
+            } onClick={this._handleUpClick} role="button" tabIndex={-1}><Icon iconSpec={SvgSortUp} /></div>
           : undefined
         }
         <div className="components-breadcrumb-crumb-list"
@@ -851,7 +852,7 @@ class BreadcrumbDropdownNode extends React.Component<BreadcrumbDropdownNodeProps
         parent = p.payload;
     }
     const label = n && n.label ? n.label : PropertyRecord.fromString("");
-    const icon = n && n.icon ? n.icon : "icon-browse";
+    const icon: IconSpec = n && n.icon ? n.icon : <SvgShare />;
     const renderNode = this.props.renderNode ? this.props.renderNode : this.renderNode;
     if (this.props.parentsOnly)
       nodeChildren = nodeChildren.filter((child) => child.hasOrWillHaveChildren());
@@ -907,7 +908,7 @@ class BreadcrumbDropdownNode extends React.Component<BreadcrumbDropdownNodeProps
  */
 export interface BreadcrumbNodeProps {
   /** Icon class string */
-  icon: string;
+  icon: IconSpec;
   /** Node label */
   label: PropertyRecord;
   /** @internal */

@@ -115,8 +115,6 @@ function PanelSplitter({isHorizontal}: {isHorizontal: boolean}) {
   );
 }
 
-// <WebFontIcon iconName={isHorizontal ? "icon-more-vertical-2" : "icon-more-2"}/>
-
 /** Properties of [[WidgetPanelProvider]] component.
  * @internal
  */

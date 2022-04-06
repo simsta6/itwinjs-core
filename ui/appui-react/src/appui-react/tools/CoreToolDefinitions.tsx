@@ -13,7 +13,7 @@ import {
   ViewClipByPlaneTool, ViewClipByRangeTool, ViewClipByShapeTool, ViewClipDecorationProvider, ViewRedoTool, ViewToggleCameraTool, ViewUndoTool,
   WalkViewTool, WindowAreaTool, ZoomViewTool,
 } from "@itwin/core-frontend";
-import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, ConditionalStringValue, IconSpecUtilities } from "@itwin/appui-abstract";
 import { ToolbarPopupContext } from "@itwin/components-react";
 import { PopupButton, PopupButtonChildrenRenderPropArgs } from "../toolbar/PopupButton";
 import { ContentViewManager } from "../content/ContentViewManager";
@@ -27,6 +27,13 @@ import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { GroupItemDef } from "../toolbar/GroupItem";
 import { RestoreFrontstageLayoutTool } from "./RestoreLayoutTool";
 import { UiFramework } from "../UiFramework";
+import svgGyroscope from "@bentley/icons-generic/icons/gyroscope.svg";
+import svgRotateLeft from "@bentley/icons-generic/icons/rotate-left.svg";
+import svgCameraAnimation from "@bentley/icons-generic/icons/camera-animation.svg";
+import svgCameraAnimationDisabled from "@bentley/icons-generic/icons/camera-animation-disabled.svg";
+import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
+import svgSelectionClear from "@bentley/icons-generic/icons/selection-clear.svg";
+import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -41,7 +48,7 @@ export class CoreTools {
   public static get keyinBrowserButtonItemDef() {
     return new CustomItemDef({
       customId: "uif:keyinbrowser",
-      iconSpec: "icon-process",
+      iconSpec: <SvgProcess />,
       labelKey: "UiFramework:keyinbrowser.label",
       popupPanelNode: <ToolbarPopupContext.Consumer>
         {({ closePanel }) => (
@@ -50,7 +57,7 @@ export class CoreTools {
       </ToolbarPopupContext.Consumer>,
       // DEPRECATED way
       reactElement: (
-        <PopupButton iconSpec="icon-process" labelKey="UiFramework:keyinbrowser.label">
+        <PopupButton iconSpec={<SvgProcess/>} labelKey="UiFramework:keyinbrowser.label">
           {this._renderKeyInBrowser}
         </PopupButton>
       ),
@@ -67,7 +74,7 @@ export class CoreTools {
   public static get keyinPaletteButtonItemDef() {
     return new ToolItemDef({
       toolId: "uif:keyinpalette",
-      iconSpec: "icon-process",
+      iconSpec: <SvgProcess />,
       labelKey: "UiFramework:keyinbrowser.label",
       execute: () => { IModelApp.uiAdmin.showKeyinPalette(); },
     });
@@ -119,8 +126,8 @@ export class CoreTools {
       iconSpec: new ConditionalStringValue(() => {
         const activeContentControl = ContentViewManager.getActiveContentControl();
         if (activeContentControl?.viewport?.view.is2d())
-          return "icon-rotate-left";
-        return "icon-gyroscope";
+          return IconSpecUtilities.createWebComponentIconSpec(svgRotateLeft);
+        return IconSpecUtilities.createWebComponentIconSpec(svgGyroscope);
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
       label: RotateViewTool.flyover,
       description: RotateViewTool.description,
@@ -158,8 +165,8 @@ export class CoreTools {
       iconSpec: new ConditionalStringValue(() => {
         const activeContentControl = ContentViewManager.getActiveContentControl();
         if (activeContentControl?.viewport?.view.is3d() && activeContentControl?.viewport?.isCameraOn)
-          return "icon-camera-animation";
-        return "icon-camera-animation-disabled";
+          return IconSpecUtilities.createWebComponentIconSpec(svgCameraAnimation);
+        return IconSpecUtilities.createWebComponentIconSpec(svgCameraAnimationDisabled);
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
       label: ViewToggleCameraTool.flyover,
       description: ViewToggleCameraTool.description,
@@ -307,7 +314,7 @@ export class CoreTools {
     return new GroupItemDef({
       groupId: "sectionTools-group",
       labelKey: "UiFramework:tools.sectionTools",
-      iconSpec: "icon-section-tool",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgSectionTool),
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl = ContentViewManager.getActiveContentControl();
         return !!activeContentControl?.viewport?.view.is2d();
@@ -327,7 +334,7 @@ export class CoreTools {
       groupId: "sectionTools-group-with-panel",
       labelKey: "UiFramework:tools.sectionTools",
       panelLabelKey: "UiFramework:tools.sectionPanelLabel",
-      iconSpec: "icon-section-tool",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgSectionTool),
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl = ContentViewManager.getActiveContentControl();
         return !!activeContentControl?.viewport?.view.is2d();
@@ -388,7 +395,7 @@ export class CoreTools {
     return new GroupItemDef({
       groupId: "measureTools-group",
       labelKey: "UiFramework:tools.measureTools",
-      iconSpec: "icon-measure",
+      iconSpec: <SvgMeasure />,
       items: [this.measureDistanceToolItemDef, this.measureLocationToolItemDef],
       itemsInColumn: 2,
     });
@@ -397,7 +404,7 @@ export class CoreTools {
   public static get clearSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.ClearSelection",
-      iconSpec: "icon-selection-clear",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgSelectionClear),
       labelKey: "UiFramework:buttons.clearSelection",
       stateSyncIds: getSelectionContextSyncEventIds(),
       stateFunc: selectionContextStateFunc,

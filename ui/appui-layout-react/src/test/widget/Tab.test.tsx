@@ -10,6 +10,7 @@ import {
   WidgetTab, WidgetTabProvider, WidgetTabsEntryContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 describe("WidgetTab", () => {
   it("should render active", () => {
@@ -117,7 +118,7 @@ describe("WidgetTab", () => {
   it("should render tab with icon only", () => {
     let nineZone = createNineZoneState();
     nineZone = addPanelWidget(nineZone, "left", "w1", ["t1"]);
-    nineZone = addTab(nineZone, "t1", { iconSpec: "icon-placeholder" });
+    nineZone = addTab(nineZone, "t1", { iconSpec:<SvgPlaceholder /> });
     const { container } = render(
       <TestNineZoneProvider
         state={nineZone}
@@ -139,7 +140,7 @@ describe("WidgetTab", () => {
   it("should render tab with text and icon", () => {
     let nineZone = createNineZoneState();
     nineZone = addPanelWidget(nineZone, "left", "w1", ["t1"]);
-    nineZone = addTab(nineZone, "t1", { iconSpec: "icon-placeholder" });
+    nineZone = addTab(nineZone, "t1", { iconSpec: <SvgPlaceholder /> });
     const { container } = render(
       <TestNineZoneProvider
         state={nineZone}

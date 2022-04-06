@@ -16,6 +16,7 @@ import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { FrameworkVersionSwitch } from "../hooks/useFrameworkVersion";
 import { ToolbarDragInteractionContext } from "../toolbar/DragInteraction";
 import { UiFramework } from "../UiFramework";
+import { SvgList } from "@itwin/itwinui-icons-react";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, deprecation/deprecation
 const ContainedGroup = withOnOutsideClick(withContainIn(Group), undefined, false);
@@ -411,7 +412,7 @@ export class ListPickerBase extends React.PureComponent<ListPickerProps, ListPic
  */
 function ListPickerPopupItem(props: ListPickerProps) {
   const icon = props.iconSpec ? (/* istanbul ignore next */ typeof props.iconSpec === "string" ? <Icon iconSpec={props.iconSpec} /> :
-    <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>) : <Icon iconSpec="icon-list" />;
+    <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>) : <Icon iconSpec={<SvgList />} />;
 
   return (
     <ToolbarDragInteractionContext.Consumer>

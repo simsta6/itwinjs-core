@@ -11,6 +11,7 @@ import * as React from "react";
 import { CommonProps } from "../utils/Props";
 import { Icon } from "../icons/IconComponent";
 import { SpinnerSize } from "../loading/Spinner";
+import { SvgCheckmark, SvgCloseSmall } from "@itwin/itwinui-icons-react";
 
 /**
  * Properties for [[ProgressSpinner]] component
@@ -74,11 +75,11 @@ export function ProgressSpinner(props: ProgressSpinnerProps) {    // eslint-disa
 
   if (error) {
     outerClassName = classnames(outerClassName, "error");
-    content = <Icon iconSpec="icon-close-2" />;
+    content = <Icon iconSpec={<SvgCloseSmall />} />;
   } else if (success) {
     outerClassName = classnames(outerClassName, "success");
     content = (
-      <Icon iconSpec="icon-checkmark" />
+      <Icon iconSpec={<SvgCheckmark />} />
     );
   } else if (indeterminate) {
     outerClassName = classnames(outerClassName, "indeterminate");

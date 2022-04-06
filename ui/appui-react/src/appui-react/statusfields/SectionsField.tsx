@@ -16,6 +16,8 @@ import { useActiveViewport } from "../hooks/useActiveViewport";
 import { UiFramework } from "../UiFramework";
 import { Indicator } from "./Indicator";
 import { StatusFieldProps } from "./StatusFieldProps";
+import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
 
 /** Sections Status Field Props
  * @beta
@@ -73,14 +75,14 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
     await IModelApp.tools.run(ViewClipClearTool.toolId, ViewClipDecorationProvider.create());
     setPopupOpen(false);
   };
-
+  const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgSectionTool);
   return (
     <div className="uifw-section-footer-popup-container">
       {showIndicator &&
         <>
           <div ref={targetDiv} title={toolTip}>
             <Indicator className={classes}
-              iconName="icon-section-tool"
+              iconSpec={iconSpec}
               onClick={() => setPopupOpen(!isPopupOpen)}
               opened={isPopupOpen}
               isInFooterMode={props.isInFooterMode}

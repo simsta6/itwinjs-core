@@ -14,6 +14,7 @@ import { Icon } from "@itwin/core-react";
 import { FooterIndicator } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
 import { StatusFieldProps } from "./StatusFieldProps";
+import { SvgCursor } from "@itwin/itwinui-icons-react";
 
 /** Defines properties supported by the SelectionInfo Field Component.
  */
@@ -38,7 +39,7 @@ class SelectionInfoFieldComponent extends React.Component<SelectionInfoFieldProp
         style={this.props.style}
         isInFooterMode={this.props.isInFooterMode}
       >
-        {<Icon iconSpec={"icon-cursor"} />}
+        {<Icon iconSpec={<SvgCursor />} />}
         {this.props.selectionCount.toString()}
       </FooterIndicator>
     );

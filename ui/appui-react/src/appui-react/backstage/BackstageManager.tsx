@@ -12,6 +12,7 @@ import { IconSpec } from "@itwin/core-react";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { UiFramework } from "../UiFramework";
 import { Backstage } from "./Backstage";
+import { SvgHome } from "@itwin/itwinui-icons-react";
 
 /** Arguments of [[BackstageManager.onToggled]].
  * @public
@@ -59,7 +60,7 @@ export class BackstageManager {
   public static getBackstageToggleCommand(overrideIconSpec?: IconSpec) {
     return new CommandItemDef({
       commandId: "UiFramework.openBackstage",
-      iconSpec: overrideIconSpec ? overrideIconSpec : "icon-home",
+      iconSpec: overrideIconSpec ? overrideIconSpec : <SvgHome />,
       labelKey: "UiFramework:commands.openBackstage",
       execute: () => {
         UiFramework.backstageManager.toggle();

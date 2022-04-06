@@ -15,6 +15,7 @@ import { Popup } from "@itwin/core-react";
 import { InputFieldMessageEventArgs, MessageManager } from "../messages/MessageManager";
 import { MessageDiv } from "./MessageSpan";
 import { NotifyMessageType } from "./ReactNotifyMessageDetails";
+import { SvgInfoCircularHollow, SvgStatusError, SvgStatusWarning} from "@itwin/itwinui-icons-react";
 
 /** Properties of [[InputFieldMessage]] component.
  * @public
@@ -53,16 +54,16 @@ export class InputFieldMessage extends React.PureComponent<InputFieldMessageProp
       return null;
     }
 
-    let iconClassName = "";
+    let iconComponent = <SvgInfoCircularHollow />;
     switch (priority) {
       case OutputMessagePriority.Warning:
-        iconClassName = "icon-status-warning";
+        iconComponent = <SvgStatusWarning />;
         break;
       case OutputMessagePriority.Error:
-        iconClassName = "icon-status-error";
+        iconComponent = <SvgStatusError />;
         break;
       case OutputMessagePriority.Info:
-        iconClassName = "icon-info";
+        iconComponent = <SvgInfoCircularHollow />;
         break;
     }
 
@@ -75,8 +76,8 @@ export class InputFieldMessage extends React.PureComponent<InputFieldMessageProp
         <div className="uifw-popup-message-inputField">
           <div className="uifw-popup-message-inputField-content">
             <div className="uifw-popup-message-inputField-primary">
-              {iconClassName &&
-                <span className="uifw-popup-message-icon"> <i className={classnames("icon", iconClassName)} /> </span>
+              {iconComponent &&
+                <span className="uifw-popup-message-icon"> <i className={classnames("icon", "core-svg-icon")}>{iconComponent}</i> </span>
               }
               <span className="uifw-popup-message-text">
                 <MessageDiv className="uifw-popup-message-brief" message={message} />

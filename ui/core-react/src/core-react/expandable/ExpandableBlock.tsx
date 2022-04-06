@@ -10,6 +10,8 @@ import "./ExpandableBlock.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { CommonProps } from "../utils/Props";
+import { SvgChevronRight } from "@itwin/itwinui-icons-react";
+import { Icon } from "../icons/IconComponent";
 
 /** Properties for the [[ExpandableBlock]] React component
  * @public
@@ -55,7 +57,7 @@ export class ExpandableBlock extends React.PureComponent<ExpandableBlockProps> {
         <div role="button" aria-expanded={ariaExpanded} className="header" onClick={this.props.onClick}
           onKeyPress={this.props.onKeyPress} onKeyDown={this.props.onKeyDown} tabIndex={tabIndex}>
           <div className="icon-container">
-            <i className="icon icon-chevron-right" />
+            <Icon iconSpec={<SvgChevronRight />} />
           </div>
           {this.props.caption &&
             <div className="caption" title={this.props.caption}>

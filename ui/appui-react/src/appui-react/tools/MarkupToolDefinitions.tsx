@@ -10,6 +10,8 @@ import {
   ArrowTool, CloudTool, DistanceTool, EllipseTool, LineTool, PlaceTextTool, PolygonTool, RectangleTool, SelectTool, SketchTool, SymbolTool,
 } from "@itwin/core-markup";
 import { ToolItemDef } from "../shared/ToolItemDef";
+import svgCursor from "@bentley/icons-generic/icons/cursor.svg";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
 
 /** Utility Class that provides definitions of tools provided by @itwin/core-markup package. These definitions can be used to populate the UI.
  *  Note: Application must call 'MarkupApp.initialize()' or 'MarkupApp.start()' before using these definitions.
@@ -18,7 +20,7 @@ import { ToolItemDef } from "../shared/ToolItemDef";
 // istanbul ignore next
 export class MarkupTools {
   public static get selectToolDef() {
-    return ToolItemDef.getItemDefForTool(SelectTool, "icon-cursor");
+    return ToolItemDef.getItemDefForTool(SelectTool, IconSpecUtilities.createWebComponentIconSpec(svgCursor));
   }
 
   public static get lineToolDef() {
