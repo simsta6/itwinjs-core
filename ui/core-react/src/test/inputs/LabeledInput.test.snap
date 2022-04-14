@@ -79,8 +79,9 @@ exports[`<LabeledInput /> renders status correctly 1`] = `
     className="input with-icon"
   >
     <ForwardRef(ForwardRefInput) />
-    <i
-      className="icon icon-status-success"
+    <Icon
+      className="icon"
+      iconSpec={<SvgStatusSuccess />}
     />
   </div>
 </label>

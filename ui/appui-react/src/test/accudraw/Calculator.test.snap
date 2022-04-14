@@ -41,7 +41,7 @@ exports[`Calculator renders correctly 1`] = `
       styleType="cta"
     >
       <Icon
-        iconSpec="icon-checkmark"
+        iconSpec={<SvgCheckmark />}
       />
     </ForwardRef>
     <ForwardRef
@@ -49,7 +49,7 @@ exports[`Calculator renders correctly 1`] = `
       onClick={[Function]}
     >
       <Icon
-        iconSpec="icon-remove"
+        iconSpec={<SvgRemove />}
       />
     </ForwardRef>
   </div>

@@ -13,8 +13,8 @@ exports[`ExpandableBlock <ExpandableBlock /> renders correctly collapsed 1`] = `
     <div
       className="icon-container"
     >
-      <i
-        className="icon icon-chevron-right"
+      <Icon
+        iconSpec={<SvgChevronRight />}
       />
     </div>
     <div
@@ -43,8 +43,8 @@ exports[`ExpandableBlock <ExpandableBlock /> renders correctly expanded 1`] = `
     <div
       className="icon-container"
     >
-      <i
-        className="icon icon-chevron-right"
+      <Icon
+        iconSpec={<SvgChevronRight />}
       />
     </div>
     <div

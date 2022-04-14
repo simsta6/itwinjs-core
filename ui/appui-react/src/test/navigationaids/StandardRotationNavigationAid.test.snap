@@ -11,8 +11,12 @@ exports[`StandardRotationNavigationAid <StandardRotationNavigationAid /> renders
       className="icon-button"
       icon={
         <span
-          className="three-d-icon icon icon-cube-faces-top"
-        />
+          className="three-d-icon icon"
+        >
+          <Icon
+            iconSpec="webSvg:undefined"
+          />
+        </span>
       }
       onClick={[Function]}
       title="standardRotationNavigationAid.title"

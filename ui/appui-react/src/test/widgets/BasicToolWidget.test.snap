@@ -15,7 +15,7 @@ exports[`BasicToolWidget BasicToolWidget should render correctly 1`] = `
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-selection-clear",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.ClearSelection",
             "internalData": Map {},
             "isActive": false,
@@ -36,7 +36,7 @@ exports[`BasicToolWidget BasicToolWidget should render correctly 1`] = `
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-visibility",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.ClearHideIsolateEmphasize",
             "internalData": Map {},
             "isActive": false,
@@ -56,7 +56,7 @@ exports[`BasicToolWidget BasicToolWidget should render correctly 1`] = `
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-asset-classification-hide",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.HideSelected",
             "internalData": Map {},
             "isActive": false,
@@ -77,7 +77,7 @@ exports[`BasicToolWidget BasicToolWidget should render correctly 1`] = `
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-asset-isolate",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.IsolateSelected",
             "internalData": Map {},
             "isActive": false,
@@ -98,7 +98,7 @@ exports[`BasicToolWidget BasicToolWidget should render correctly 1`] = `
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-visibility-semi-transparent",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.EmphasizeSelected",
             "internalData": Map {},
             "isActive": false,
@@ -140,9 +140,11 @@ exports[`BasicToolWidget BasicToolWidget should render correctly 1`] = `
           },
           Object {
             "badgeType": undefined,
-            "icon": "icon-measure",
+            "icon": "#-react-iconspec-node-#",
             "id": "measureTools-group",
-            "internalData": Map {},
+            "internalData": Map {
+              "#-react-iconspec-node-#" => <SvgMeasure />,
+            },
             "isActive": false,
             "isDisabled": undefined,
             "isHidden": undefined,
@@ -178,7 +180,7 @@ exports[`BasicToolWidget BasicToolWidget should render correctly 1`] = `
           },
           Object {
             "badgeType": undefined,
-            "icon": "icon-section-tool",
+            "icon": "webSvg:undefined",
             "id": "sectionTools-group",
             "internalData": Map {},
             "isActive": false,
@@ -270,7 +272,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-selection-clear",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.ClearSelection",
             "internalData": Map {},
             "isActive": false,
@@ -291,7 +293,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-visibility",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.ClearHideIsolateEmphasize",
             "internalData": Map {},
             "isActive": false,
@@ -310,7 +312,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
           },
           Object {
             "badgeType": undefined,
-            "icon": "icon-visibility-hide-2",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.HideSelectionGroup",
             "internalData": Map {},
             "isActive": false,
@@ -330,7 +332,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
               Object {
                 "badgeType": undefined,
                 "execute": [Function],
-                "icon": "icon-asset-classification-hide",
+                "icon": "webSvg:undefined",
                 "id": "UiFramework.HideSelected",
                 "internalData": Map {},
                 "isActive": false,
@@ -351,7 +353,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
               Object {
                 "badgeType": undefined,
                 "execute": [Function],
-                "icon": "icon-layers-hide",
+                "icon": "webSvg:undefined",
                 "id": "UiFramework.HideCategory",
                 "internalData": Map {},
                 "isActive": false,
@@ -363,7 +365,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
               Object {
                 "badgeType": undefined,
                 "execute": [Function],
-                "icon": "icon-model-hide",
+                "icon": "webSvg:undefined",
                 "id": "UiFramework.HideModel",
                 "internalData": Map {},
                 "isActive": false,
@@ -378,7 +380,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
           },
           Object {
             "badgeType": undefined,
-            "icon": "icon-isolate",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.IsolateSelectionGroup",
             "internalData": Map {},
             "isActive": false,
@@ -398,7 +400,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
               Object {
                 "badgeType": undefined,
                 "execute": [Function],
-                "icon": "icon-asset-isolate",
+                "icon": "webSvg:undefined",
                 "id": "UiFramework.IsolateSelected",
                 "internalData": Map {},
                 "isActive": false,
@@ -419,7 +421,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
               Object {
                 "badgeType": undefined,
                 "execute": [Function],
-                "icon": "icon-layers-isolate",
+                "icon": "webSvg:undefined",
                 "id": "UiFramework.IsolateCategory",
                 "internalData": Map {},
                 "isActive": false,
@@ -431,7 +433,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
               Object {
                 "badgeType": undefined,
                 "execute": [Function],
-                "icon": "icon-model-isolate",
+                "icon": "webSvg:undefined",
                 "id": "UiFramework.IsolateModel",
                 "internalData": Map {},
                 "isActive": false,
@@ -447,7 +449,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-visibility-semi-transparent",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.EmphasizeSelected",
             "internalData": Map {},
             "isActive": false,
@@ -489,9 +491,11 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
           },
           Object {
             "badgeType": undefined,
-            "icon": "icon-measure",
+            "icon": "#-react-iconspec-node-#",
             "id": "measureTools-group",
-            "internalData": Map {},
+            "internalData": Map {
+              "#-react-iconspec-node-#" => <SvgMeasure />,
+            },
             "isActive": false,
             "isDisabled": undefined,
             "isHidden": undefined,
@@ -527,7 +531,7 @@ exports[`BasicToolWidget BasicToolWidget with bentley B should render 1`] = `
           },
           Object {
             "badgeType": undefined,
-            "icon": "icon-section-tool",
+            "icon": "webSvg:undefined",
             "id": "sectionTools-group",
             "internalData": Map {},
             "isActive": false,
@@ -619,7 +623,7 @@ exports[`BasicToolWidget BasicToolWidget with suffix and prefix items should ren
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-selection-clear",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.ClearSelection",
             "internalData": Map {},
             "isActive": false,
@@ -640,7 +644,7 @@ exports[`BasicToolWidget BasicToolWidget with suffix and prefix items should ren
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-visibility",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.ClearHideIsolateEmphasize",
             "internalData": Map {},
             "isActive": false,
@@ -660,7 +664,7 @@ exports[`BasicToolWidget BasicToolWidget with suffix and prefix items should ren
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-asset-classification-hide",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.HideSelected",
             "internalData": Map {},
             "isActive": false,
@@ -681,7 +685,7 @@ exports[`BasicToolWidget BasicToolWidget with suffix and prefix items should ren
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-asset-isolate",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.IsolateSelected",
             "internalData": Map {},
             "isActive": false,
@@ -702,7 +706,7 @@ exports[`BasicToolWidget BasicToolWidget with suffix and prefix items should ren
           Object {
             "badgeType": undefined,
             "execute": [Function],
-            "icon": "icon-visibility-semi-transparent",
+            "icon": "webSvg:undefined",
             "id": "UiFramework.EmphasizeSelected",
             "internalData": Map {},
             "isActive": false,
@@ -768,9 +772,11 @@ exports[`BasicToolWidget BasicToolWidget with suffix and prefix items should ren
           },
           Object {
             "badgeType": undefined,
-            "icon": "icon-measure",
+            "icon": "#-react-iconspec-node-#",
             "id": "measureTools-group",
-            "internalData": Map {},
+            "internalData": Map {
+              "#-react-iconspec-node-#" => <SvgMeasure />,
+            },
             "isActive": false,
             "isDisabled": undefined,
             "isHidden": undefined,
@@ -806,7 +812,7 @@ exports[`BasicToolWidget BasicToolWidget with suffix and prefix items should ren
           },
           Object {
             "badgeType": undefined,
-            "icon": "icon-section-tool",
+            "icon": "webSvg:undefined",
             "id": "sectionTools-group",
             "internalData": Map {},
             "isActive": false,

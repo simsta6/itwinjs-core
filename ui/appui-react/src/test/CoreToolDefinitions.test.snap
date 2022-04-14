@@ -165,7 +165,7 @@ exports[`CoreToolDefinitions ToolWidget should render correctly with Core Tool D
                 "getKey": [Function],
                 "handleSizeKnown": [Function],
                 "iconSpec": ConditionalStringValue {
-                  "_value": "icon-gyroscope",
+                  "_value": "webSvg:undefined",
                   "stringGetter": [Function],
                   "syncEventIds": Array [
                     "activecontentchanged",
@@ -237,7 +237,7 @@ exports[`CoreToolDefinitions ToolWidget should render correctly with Core Tool D
                 "getKey": [Function],
                 "handleSizeKnown": [Function],
                 "iconSpec": ConditionalStringValue {
-                  "_value": "icon-camera-animation-disabled",
+                  "_value": "webSvg:undefined",
                   "stringGetter": [Function],
                   "syncEventIds": Array [
                     "activecontentchanged",
@@ -584,7 +584,7 @@ exports[`CoreToolDefinitions ToolWidget should render correctly with Core Tool D
                     "getKey": [Function],
                     "handleSizeKnown": [Function],
                     "iconSpec": ConditionalStringValue {
-                      "_value": "icon-gyroscope",
+                      "_value": "webSvg:undefined",
                       "stringGetter": [Function],
                       "syncEventIds": Array [
                         "activecontentchanged",
@@ -656,7 +656,7 @@ exports[`CoreToolDefinitions ToolWidget should render correctly with Core Tool D
                     "getKey": [Function],
                     "handleSizeKnown": [Function],
                     "iconSpec": ConditionalStringValue {
-                      "_value": "icon-camera-animation-disabled",
+                      "_value": "webSvg:undefined",
                       "stringGetter": [Function],
                       "syncEventIds": Array [
                         "activecontentchanged",
@@ -880,15 +880,17 @@ exports[`CoreToolDefinitions ToolWidgetComposer should render correctly with Cor
             Object {
               "badgeType": undefined,
               "buttonNode": <PopupButton
-                iconSpec="icon-process"
+                iconSpec={<SvgProcess />}
                 labelKey="UiFramework:keyinbrowser.label"
                 onSizeKnown={[Function]}
               >
                 [Function]
               </PopupButton>,
-              "icon": "icon-process",
+              "icon": "#-react-iconspec-node-#",
               "id": "uif:keyinbrowser",
-              "internalData": Map {},
+              "internalData": Map {
+                "#-react-iconspec-node-#" => <SvgProcess />,
+              },
               "isCustom": true,
               "isDisabled": undefined,
               "isHidden": undefined,
@@ -962,7 +964,7 @@ exports[`CoreToolDefinitions ToolWidgetComposer should render correctly with Cor
               "badgeType": undefined,
               "execute": [Function],
               "icon": ConditionalStringValue {
-                "_value": "icon-gyroscope",
+                "_value": "webSvg:undefined",
                 "stringGetter": [Function],
                 "syncEventIds": Array [
                   "activecontentchanged",
@@ -1002,7 +1004,7 @@ exports[`CoreToolDefinitions ToolWidgetComposer should render correctly with Cor
               "badgeType": undefined,
               "execute": [Function],
               "icon": ConditionalStringValue {
-                "_value": "icon-camera-animation-disabled",
+                "_value": "webSvg:undefined",
                 "stringGetter": [Function],
                 "syncEventIds": Array [
                   "activecontentchanged",

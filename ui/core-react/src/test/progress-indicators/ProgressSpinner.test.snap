@@ -243,7 +243,7 @@ exports[`<ProgressSpinner /> should render with error 1`] = `
     className="uicore-progress-spinner-content"
   >
     <Icon
-      iconSpec="icon-close-2"
+      iconSpec={<SvgCloseSmall />}
     />
   </span>
 </div>
@@ -316,7 +316,7 @@ exports[`<ProgressSpinner /> should render with success 1`] = `
     className="uicore-progress-spinner-content"
   >
     <Icon
-      iconSpec="icon-checkmark"
+      iconSpec={<SvgCheckmark />}
     />
   </span>
 </div>

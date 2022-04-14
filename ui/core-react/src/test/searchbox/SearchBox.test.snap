@@ -22,8 +22,12 @@ exports[`SearchBox renders renders correctly 1`] = `
     title="general.search"
   >
     <span
-      className="core-searchbox-icon icon icon-search"
-    />
+      className="core-searchbox-icon icon"
+    >
+      <Icon
+        iconSpec={<SvgSearch />}
+      />
+    </span>
   </div>
 </div>
 `;

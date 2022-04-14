@@ -69,11 +69,10 @@ describe("MessageCenter", () => {
 
     wrapper.find("div.nz-balloon").simulate("click"); // Opens it
     wrapper.update();
-
-    expect(wrapper.find("i.icon-info").length).to.eq(1);
-    expect(wrapper.find("i.icon-status-warning").length).to.eq(1);
-    expect(wrapper.find("i.icon-status-error").length).to.eq(1);
-    expect(wrapper.find("i.icon-status-rejected").length).to.eq(1);
+    expect(wrapper.find("SvgStatusInfo").length).to.eq(1);
+    expect(wrapper.find("SvgStatusWarning").length).to.eq(1);
+    expect(wrapper.find("SvgStatusError").length).to.eq(1);
+    expect(wrapper.find("SvgStatusRejected").length).to.eq(1);
 
     wrapper.find("div.nz-balloon").simulate("click"); // Closes it
     wrapper.update();

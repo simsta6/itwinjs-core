@@ -14,7 +14,7 @@ exports[`MenuButton renders correctly 1`] = `
     onClick={[Function]}
   >
     <Icon
-      iconSpec="icon-more-2"
+      iconSpec={<SvgMore />}
     />
   </SquareButton>
   <ContextMenu
