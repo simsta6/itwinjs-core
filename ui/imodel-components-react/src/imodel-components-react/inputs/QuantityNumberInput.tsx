@@ -306,7 +306,7 @@ const ForwardRefQuantityNumberInput = React.forwardRef<HTMLInputElement, Quantit
             </div>
             { /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
             <div className="component-quantity-number-input-button component-quantity-number-input-button-down" tabIndex={-1} onClick={handleDownClick}>
-              <Icon iconName={<SvgCaretDown />} />
+              <Icon iconSpec={<SvgCaretDown />} />
             </div>
           </div>
         </div>
