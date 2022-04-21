@@ -8,10 +8,6 @@ parameters:
     type: boolean
     default: false
 
-variables:
-  - name: PNPM_STORE_PATH
-    value: $(Pipeline.Workspace)/common/temp/pnpm-store
-
 steps:
   - script: node common/scripts/install-run-rush.js check
     displayName: rush check
@@ -27,14 +23,14 @@ steps:
       failOnStderr: true
 
   # For cache task to work, path must exist even if it is empty
-  - script: mkdir ${{ variables.PNPM_STORE_PATH }}
+  - script: mkdir $(Pipeline.Workspace)/common/temp/pnpm-store
     displayName: setup pnpm store
 
   - task: Cache@2
     displayName: restore pnpm cache
     inputs:
       key: 'pnpm | "$(Agent.OS)" | ./common/config/rush/pnpm-lock.yaml'
-      path: $(PNPM_STORE_PATH)
+      path: $(Pipeline.Workspace)/common/temp/pnpm-store
     condition: and(succeeded(), eq(${{ parameters.useCache }}, true))
 
   - script: node common/scripts/install-run-rush.js install
