@@ -4,11 +4,15 @@ parameters:
   - name: workingDir
     type: string
     default: $(System.DefaultWorkingDirectory)
+  - name: useCache
+    type: boolean
+    default: false
 
 steps:
   - script: node common/scripts/install-run-rush.js check
     displayName: rush check
     workingDirectory: ${{ parameters.workingDir }}
+
   - task: PythonScript@0
     displayName: "rush change -v"
     inputs:
@@ -17,21 +21,33 @@ steps:
       scriptPath: common/scripts/run_rush_change.py
       arguments: $(Build.SourceBranch) $(Build.Reason) $(System.PullRequest.TargetBranch)
       failOnStderr: true
+
+  - task: Cache@2
+    displayName: restore pnpm cache
+    inputs:
+      key: 'pnpm | "$(Agent.OS)" | ./common/config/rush/pnpm-lock.yaml'
+      path: $(Pipeline.Workspace)/common/temp/pnpm-store
+    condition: and(succeeded(), eq(parameters.useCache, true))
+
   - script: node common/scripts/install-run-rush.js install
     displayName: rush install
     workingDirectory: ${{ parameters.workingDir }}
+
   - script: node common/scripts/install-run-rush.js audit
     displayName: rush audit
     workingDirectory: ${{ parameters.workingDir }}
     condition: and(succeeded(), ne(variables['Agent.OS'], 'Darwin'))
+
   - script: node common/scripts/install-run-rush.js build:ci -v -p max
     displayName: rush build
     workingDirectory: ${{ parameters.workingDir }}
     condition: and(succeeded(), not(and(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Agent.OS'], 'Darwin'))))
+
   - script: node common/scripts/install-run-rush.js build -v -p max
     displayName: rush build
     workingDirectory: ${{ parameters.workingDir }}
     condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Agent.OS'], 'Darwin'))
+
   - script: node common/scripts/install-run-rush.js lint
     displayName: rush lint
     workingDirectory: ${{ parameters.workingDir }}
