@@ -27,7 +27,7 @@ steps:
     inputs:
       key: 'pnpm | "$(Agent.OS)" | ./common/config/rush/pnpm-lock.yaml'
       path: $(Pipeline.Workspace)/common/temp/pnpm-store
-    condition: and(succeeded(), eq(parameters.useCache, true))
+    condition: and(succeeded(), eq(${{ parameters.useCache }}, true))
 
   - script: node common/scripts/install-run-rush.js install
     displayName: rush install
