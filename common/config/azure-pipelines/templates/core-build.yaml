@@ -23,7 +23,7 @@ steps:
       failOnStderr: true
 
   # For cache task to work, path must exist even if it is empty
-  - script: mkdir $(Pipeline.Workspace)/common/temp/pnpm-store
+  - script: mkdir -p $(Pipeline.Workspace)\common\temp\pnpm-store
     displayName: setup pnpm store
 
   - task: Cache@2
