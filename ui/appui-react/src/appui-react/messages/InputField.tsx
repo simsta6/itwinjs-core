@@ -15,7 +15,7 @@ import { Popup } from "@itwin/core-react";
 import { InputFieldMessageEventArgs, MessageManager } from "../messages/MessageManager";
 import { MessageDiv } from "./MessageSpan";
 import { NotifyMessageType } from "./ReactNotifyMessageDetails";
-import { SvgInfoCircularHollow, SvgStatusError, SvgStatusWarning} from "@itwin/itwinui-icons-react";
+import { SvgClose, SvgInfoCircularHollow, SvgStatusError, SvgStatusWarning} from "@itwin/itwinui-icons-react";
 
 /** Properties of [[InputFieldMessage]] component.
  * @public
@@ -90,7 +90,7 @@ export class InputFieldMessage extends React.PureComponent<InputFieldMessageProp
           {showCloseButton &&
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <div className="uifw-popup-message-close" onClick={this._onInputMessageClose} role="button" tabIndex={-1}>
-              <i className="icon icon-close" />
+              <i className="icon"><SvgClose /></i>
             </div>
           }
         </div>
