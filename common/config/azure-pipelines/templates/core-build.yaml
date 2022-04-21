@@ -11,6 +11,7 @@ parameters:
 variables:
   - name: PNPM_STORE_PATH
     value: $(Pipeline.Workspace)/common/temp/pnpm-store
+
 steps:
   - script: node common/scripts/install-run-rush.js check
     displayName: rush check
