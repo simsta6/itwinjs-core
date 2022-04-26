@@ -8,6 +8,10 @@ parameters:
     type: boolean
     default: false
 
+# variables:
+#   - name: cacheHit
+#     value: false
+
 steps:
   - script: node common/scripts/install-run-rush.js check
     displayName: rush check
@@ -23,15 +27,15 @@ steps:
       failOnStderr: true
 
   - script: |
-      mkdir -p $(Pipeline.Workspace)\pnpm-store
-      pnpm config set store-dir $(Pipeline.Workspace)\pnpm-store
+      mkdir -p $(Pipeline.Workspace)\common\temp
     displayName: setup pnpm store
 
   - task: Cache@2
     displayName: restore pnpm cache
     inputs:
       key: 'pnpm | "$(Agent.OS)" | ./common/config/rush/pnpm-lock.yaml'
-      path: $(Pipeline.Workspace)/pnpm-store
+      path: $(Pipeline.Workspace)/common/temp
+      cacheHitVar: $(cacheHit)
     condition: and(succeeded(), eq(${{ parameters.useCache }}, true))
 
   - script: node common/scripts/install-run-rush.js install
