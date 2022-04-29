@@ -1867,6 +1867,7 @@ describe("iModel", () => {
 
       await convertTest("BritishNatGrid-Ellipsoid4.bim", { horizontalCRS: { id: "BritishNatGrid" }, verticalCRS: { id: "ELLIPSOID" } }, { horizontalCRS: { id: "HS2_Snake_2015" }, verticalCRS: { id: "GEOID" } }, { x: 473327.251, y: 257049.636, z: 0.0 }, { p: { x: 237732.58101946692, y: 364048.01547843055, z: -47.874172425966336 }, s: 0 });
 
+
       await convertTest("BritishNatGrid-Ellipsoid5.bim", { horizontalCRS: { id: "BritishNatGrid" }, verticalCRS: { id: "ELLIPSOID" } },
         {
           horizontalCRS: {
