@@ -1039,6 +1039,10 @@
       "allowedCategories": [ "frontend", "tools" ]
     },
     {
+      "name": "vite",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "webpack",
       "allowedCategories": [ "backend", "common", "frontend", "integration-testing", "internal", "tools" ]
     },
