@@ -11,6 +11,18 @@
       "allowedCategories": [ "backend", "internal" ]
     },
     {
+      "name": "@babel/core",
+      "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "@babel/plugin-syntax-flow",
+      "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "@babel/plugin-transform-react-jsx",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "@bentley/aec-units-schema",
       "allowedCategories": [ "internal" ]
     },
