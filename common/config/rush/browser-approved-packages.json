@@ -103,6 +103,14 @@
       "allowedCategories": [ "backend", "common" ]
     },
     {
+      "name": "@esbuild-plugins/node-globals-polyfill",
+      "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "@esbuild-plugins/node-modules-polyfill",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "@itwin/appui-abstract",
       "allowedCategories": [ "edit", "extensions", "frontend", "internal", "tools" ]
     },
@@ -351,6 +359,10 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
+      "name": "@kckst8/vite-plugin-commonjs",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "@loaders.gl/core",
       "allowedCategories": [ "frontend" ]
     },
@@ -404,6 +416,10 @@
     },
     {
       "name": "@typescript-eslint/typescript-estree",
+      "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "@vitejs/plugin-react",
       "allowedCategories": [ "tools" ]
     },
     {
