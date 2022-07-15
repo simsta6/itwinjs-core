@@ -12,13 +12,14 @@ export interface BrowserFileSelector {
   directory: string;
 }
 
-export async function selectFileName(selector: BrowserFileSelector | undefined): Promise<string | undefined> {
+export async function selectFileName(
+  selector: BrowserFileSelector | undefined
+): Promise<string | undefined> {
   if (ProcessDetector.isElectronAppFrontend) {
     const opts: OpenDialogOptions = {
       properties: ["openFile"],
       title: "Open iModel",
       filters: [{ name: "iModels", extensions: ["ibim", "bim"] }],
-
     };
     const val = await ElectronApp.callDialog("showOpenDialog", opts);
     return val.canceled ? undefined : val.filePaths[0];
@@ -40,8 +41,7 @@ export async function selectFileName(selector: BrowserFileSelector | undefined):
         const files = selector.input.files;
         if (files && files.length > 0)
           resolve(`${selector.directory}/${files[0].name}`);
-        else
-          resolve(undefined);
+        else resolve(undefined);
       } catch (e) {
         reject(e);
       }
