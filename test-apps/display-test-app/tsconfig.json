@@ -24,6 +24,7 @@
   "exclude": [
     "lib",
     "node_modules",
-    "./src/backend/**/*.ts"
+    "./src/backend/**/*.ts",
+    "vite.config.ts"
   ]
 }

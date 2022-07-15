@@ -6,7 +6,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000" />
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+  <!-- <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" /> -->
   <title>Display Test App</title>
   <style>
     html,
@@ -22,18 +22,29 @@
       height: 100%;
     }
   </style>
-  <link rel="stylesheet" type="text/css" href="index.css">
-  <link rel="stylesheet" type="text/css" href="bentley-icons-generic-webfont.css">
+  <link rel="stylesheet" type="text/css" href="/public/index.css">
+  <!-- <link rel="stylesheet" type="text/css" href="bentley-icons-generic-webfont.css"> -->
 
-  <script type="text/javascript" src="%PUBLIC_URL%/scripts/checkbrowser.js"></script>
+  <!-- <script type="text/javascript" src="%PUBLIC_URL%/scripts/checkbrowser.js"></script> -->
+  <script>
+
+    // TODO remove this once __dirname is no longer referenced in iTwin.js frontend code.
+
+    // We cannot define __dirname in configuration due to Vite.js always replacing it:
+
+    // https://github.com/vitejs/vite/pull/2780
+
+    window.__dirname = "";
+
+    </script>
 </head>
 
 <body>
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
+
   <div id="root">
-    <!-- Browser file selector only used when we are running in browser and were given a base path for all standalone files -->
     <input type="file" id="browserFileSelector" />
     <div class=status-bar id="status-bar">
       <span id="keyin-entry" class="keyin-entry"></span>
@@ -55,6 +66,8 @@
       <span class="statusspan" id="showstatus"></span>
       <span class="statusspan" id="showerror"></span>
     </div>
+  </div>
+  <script type="module" src="/src/index.ts"></script>
 </body>
 
 </html>

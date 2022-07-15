@@ -3142,10 +3142,15 @@ importers:
 
   ../../test-apps/display-test-app:
     specifiers:
+      '@babel/core': ^7.0
+      '@babel/plugin-syntax-flow': ^7.14.5
+      '@babel/plugin-transform-react-jsx': ^7.14.9
       '@bentley/icons-generic': ^1.0.15
       '@bentley/icons-generic-webfont': ^1.0.15
       '@bentley/imodelbank-client': workspace:*
       '@bentley/react-scripts': 5.0.0-dev.4
+      '@esbuild-plugins/node-globals-polyfill': ~0.1.1
+      '@esbuild-plugins/node-modules-polyfill': ~0.1.2
       '@itwin/appui-abstract': workspace:*
       '@itwin/backend-webpack-tools': workspace:*
       '@itwin/browser-authorization': ^0.5.1
@@ -3172,9 +3177,11 @@ importers:
       '@itwin/imodels-client-authoring': ^1.0.1
       '@itwin/reality-data-client': 0.7.0
       '@itwin/webgl-compatibility': workspace:*
+      '@kckst8/vite-plugin-commonjs': ^0.1.0
       '@types/express': ^4.16.1
       '@types/express-ws': ^3.0.1
       '@types/fs-extra': ^4.0.7
+      '@vitejs/plugin-react': ^1.3.2
       body-parser: ^1.18.2
       child_process: ^1.0.2
       cpx2: ^3.0.0
@@ -3222,14 +3229,21 @@ importers:
       '@itwin/webgl-compatibility': link:../../core/webgl-compatibility
       body-parser: 1.20.0
     devDependencies:
-      '@bentley/react-scripts': 5.0.0-dev.4_typescript@4.4.4
+      '@babel/core': 7.18.2
+      '@babel/plugin-syntax-flow': 7.17.12_@babel+core@7.18.2
+      '@babel/plugin-transform-react-jsx': 7.17.12_@babel+core@7.18.2
+      '@bentley/react-scripts': 5.0.0-dev.4_0a4b0bb70fd3a7dd173a0b1ca23ea74c
+      '@esbuild-plugins/node-globals-polyfill': 0.1.1
+      '@esbuild-plugins/node-modules-polyfill': 0.1.4
       '@itwin/backend-webpack-tools': link:../../tools/backend-webpack
       '@itwin/build-tools': link:../../tools/build
       '@itwin/core-webpack-tools': link:../../tools/webpack-core
       '@itwin/eslint-plugin': link:../../tools/eslint-plugin
+      '@kckst8/vite-plugin-commonjs': 0.1.0
       '@types/express': 4.17.13
       '@types/express-ws': 3.0.1
       '@types/fs-extra': 4.0.12
+      '@vitejs/plugin-react': 1.3.2
       child_process: 1.0.2
       cpx2: 3.0.2
       cross-env: 5.2.1
@@ -6636,6 +6650,107 @@ packages:
   /@bentley/quantity-takeoffs-aspects-schema/1.0.1:
     resolution: {integrity: sha512-ufOI4M0zyRuf9qvQfVuvra3AFNA2xo9OOPjYq6/ffLptQtoocrmnLq+pfhMMPnY5JnSSt0CavzhxM0d6Ynzkhg==}
     dev: false
+
+  /@bentley/react-scripts/5.0.0-dev.4_0a4b0bb70fd3a7dd173a0b1ca23ea74c:
+    resolution: {integrity: sha512-2jkL8kvzAbYvBGMlw1pT1XRNUutWvSUd/XYDO98R7QZnyvb4p70Erk0blqwZQCug9a6yCwASXXA0H4Nhgn41Rw==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    peerDependencies:
+      react: '>= 16'
+      typescript: ^3.2.1 || ^4
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@babel/core': 7.18.2
+      '@itwin/core-webpack-tools': 3.2.0_webpack@5.73.0
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.7_254b7236849cb8add85a954853111e14
+      '@svgr/webpack': 5.5.0
+      babel-jest: 27.5.1_@babel+core@7.18.2
+      babel-loader: 8.2.5_1e6208c184491b2ebbab8f4236ed439d
+      babel-plugin-import-remove-resource-query: 1.0.0
+      babel-plugin-named-asset-import: 0.3.8_@babel+core@7.18.2
+      babel-preset-react-app: 10.0.1
+      bfj: 7.0.2
+      browserslist: 4.20.3
+      camelcase: 6.3.0
+      case-sensitive-paths-webpack-plugin: 2.4.0
+      copy-webpack-plugin: 10.2.4_webpack@5.73.0
+      css-loader: 6.7.1_webpack@5.73.0
+      css-minimizer-webpack-plugin: 3.4.1_webpack@5.73.0
+      dotenv: 10.0.0
+      dotenv-expand: 5.1.0
+      eslint: 8.16.0
+      eslint-config-react-app: 7.0.1_38df8d13ac45c07682901a686478d223
+      eslint-webpack-plugin: 3.1.1_eslint@8.16.0+webpack@5.73.0
+      fast-sass-loader: 2.0.1_sass@1.52.2+webpack@5.73.0
+      file-loader: 6.2.0_webpack@5.73.0
+      fs-extra: 10.1.0
+      html-webpack-plugin: 5.5.0_webpack@5.73.0
+      identity-obj-proxy: 3.0.0
+      jest: 27.5.1
+      jest-resolve: 27.5.1
+      jest-watch-typeahead: 1.1.0_jest@27.5.1
+      mini-css-extract-plugin: 2.6.0_webpack@5.73.0
+      postcss: 8.4.14
+      postcss-flexbugs-fixes: 5.0.2_postcss@8.4.14
+      postcss-loader: 6.2.1_postcss@8.4.14+webpack@5.73.0
+      postcss-normalize: 10.0.1_e75cc2f88047350d88863901d59c799b
+      postcss-preset-env: 7.7.1_postcss@8.4.14
+      prompts: 2.4.2
+      react-app-polyfill: 3.0.0
+      react-dev-utils: 12.0.1_9c235ea83234dc48599c4a5e6a3289a8
+      react-refresh: 0.11.0
+      resolve: 1.22.0
+      resolve-url-loader: 4.0.0
+      sass: 1.52.2
+      sass-loader: 12.6.0_sass@1.52.2+webpack@5.73.0
+      semver: 7.3.7
+      source-map-loader: 3.0.1_webpack@5.73.0
+      style-loader: 3.3.1_webpack@5.73.0
+      svg-sprite-loader: 4.2.1_webpack@5.73.0
+      tailwindcss: 3.0.24
+      terser-webpack-plugin: 5.3.3_webpack@5.73.0
+      ts-jest: 27.1.5_4cbd749a6daf3867819f63c9755e8a75
+      typescript: 4.4.4
+      webpack: 5.73.0
+      webpack-dev-server: 4.9.1_webpack@5.73.0
+      webpack-filter-warnings-plugin: 1.2.1_webpack@5.73.0
+      webpack-manifest-plugin: 4.1.1_webpack@5.73.0
+      workbox-webpack-plugin: 6.5.3_webpack@5.73.0
+    optionalDependencies:
+      fsevents: 2.3.2
+    transitivePeerDependencies:
+      - '@babel/plugin-syntax-flow'
+      - '@babel/plugin-transform-react-jsx'
+      - '@parcel/css'
+      - '@swc/core'
+      - '@types/babel__core'
+      - '@types/jest'
+      - '@types/webpack'
+      - bufferutil
+      - canvas
+      - clean-css
+      - csso
+      - debug
+      - esbuild
+      - fibers
+      - node-notifier
+      - node-sass
+      - rework
+      - rework-visit
+      - sass-embedded
+      - sockjs-client
+      - supports-color
+      - ts-node
+      - type-fest
+      - uglify-js
+      - utf-8-validate
+      - vue-template-compiler
+      - webpack-cli
+      - webpack-hot-middleware
+      - webpack-plugin-serve
+    dev: true
 
   /@bentley/react-scripts/5.0.0-dev.4_react@17.0.2+typescript@4.4.4:
     resolution: {integrity: sha512-2jkL8kvzAbYvBGMlw1pT1XRNUutWvSUd/XYDO98R7QZnyvb4p70Erk0blqwZQCug9a6yCwASXXA0H4Nhgn41Rw==}
@@ -13268,6 +13383,35 @@ packages:
       - typescript
     dev: true
 
+  /eslint-config-react-app/7.0.1_38df8d13ac45c07682901a686478d223:
+    resolution: {integrity: sha512-K6rNzvkIeHaTd8m/QEh1Zko0KI7BACWkkneSs6s9cKZC/J27X3eZR6Upt1jkmZ/4FK+XUOPPxMEN7+lbUXfSlA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      eslint: ^8.0.0
+    dependencies:
+      '@babel/core': 7.18.2
+      '@babel/eslint-parser': 7.18.2_@babel+core@7.18.2+eslint@8.16.0
+      '@rushstack/eslint-patch': 1.1.3
+      '@typescript-eslint/eslint-plugin': 5.27.0_7ab1dddd80de37be6e103d62a28b693e
+      '@typescript-eslint/parser': 5.27.0_eslint@8.16.0+typescript@4.4.4
+      babel-preset-react-app: 10.0.1
+      confusing-browser-globals: 1.0.11
+      eslint: 8.16.0
+      eslint-plugin-flowtype: 8.0.3_6c27f82cb803ad1e4a2bf4f6bb4da91c
+      eslint-plugin-import: 2.26.0_eslint@8.16.0
+      eslint-plugin-jest: 25.7.0_8358ab0bea5ba80cc36aa12f14d99551
+      eslint-plugin-jsx-a11y: 6.5.1_eslint@8.16.0
+      eslint-plugin-react: 7.30.0_eslint@8.16.0
+      eslint-plugin-react-hooks: 4.5.0_eslint@8.16.0
+      eslint-plugin-testing-library: 5.5.1_eslint@8.16.0+typescript@4.4.4
+    transitivePeerDependencies:
+      - '@babel/plugin-syntax-flow'
+      - '@babel/plugin-transform-react-jsx'
+      - jest
+      - supports-color
+      - typescript
+    dev: true
+
   /eslint-import-resolver-node/0.3.4:
     resolution: {integrity: sha512-ogtf+5AB/O+nM6DIeBUNr2fuT7ot9Qg/1harBfBtaP13ekEWFQEEMP94BCB7zaNW3gyY+8SHYF00rnqYwXKWOA==}
     dependencies:
@@ -13321,6 +13465,21 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
+
+  /eslint-plugin-flowtype/8.0.3_6c27f82cb803ad1e4a2bf4f6bb4da91c:
+    resolution: {integrity: sha512-dX8l6qUL6O+fYPtpNRideCFSpmWOUVx5QcaGLVqe/vlDiBSe4vYljDWDETwnyFzpl7By/WVIu6rcrniCgH9BqQ==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@babel/plugin-syntax-flow': ^7.14.5
+      '@babel/plugin-transform-react-jsx': ^7.14.9
+      eslint: ^8.1.0
+    dependencies:
+      '@babel/plugin-syntax-flow': 7.17.12_@babel+core@7.18.2
+      '@babel/plugin-transform-react-jsx': 7.17.12_@babel+core@7.18.2
+      eslint: 8.16.0
+      lodash: 4.17.21
+      string-natural-compare: 3.0.1
+    dev: true
 
   /eslint-plugin-flowtype/8.0.3_eslint@8.16.0:
     resolution: {integrity: sha512-dX8l6qUL6O+fYPtpNRideCFSpmWOUVx5QcaGLVqe/vlDiBSe4vYljDWDETwnyFzpl7By/WVIu6rcrniCgH9BqQ==}

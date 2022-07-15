@@ -24,6 +24,7 @@ export default defineConfig(({ mode }) => {
           "@itwin/presentation-frontend",
           "@itwin/presentation-components",
           "@itwin/appui-react",
+          "@itwin/core-bentley",
         ],
       }),
     ],
@@ -65,6 +66,7 @@ export default defineConfig(({ mode }) => {
             "@itwin/presentation-frontend",
             "@itwin/presentation-components",
             "@itwin/appui-react",
+            "@itwin/core-bentley",
           ]),
         ],
         loader: {

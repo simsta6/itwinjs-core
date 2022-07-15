@@ -12,15 +12,15 @@
     },
     {
       "name": "@babel/core",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "internal", "tools" ]
     },
     {
       "name": "@babel/plugin-syntax-flow",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "internal", "tools" ]
     },
     {
       "name": "@babel/plugin-transform-react-jsx",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "internal", "tools" ]
     },
     {
       "name": "@bentley/aec-units-schema",
@@ -116,11 +116,11 @@
     },
     {
       "name": "@esbuild-plugins/node-globals-polyfill",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "internal", "tools" ]
     },
     {
       "name": "@esbuild-plugins/node-modules-polyfill",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "internal", "tools" ]
     },
     {
       "name": "@itwin/appui-abstract",
@@ -372,7 +372,7 @@
     },
     {
       "name": "@kckst8/vite-plugin-commonjs",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "internal", "tools" ]
     },
     {
       "name": "@loaders.gl/core",
@@ -432,7 +432,7 @@
     },
     {
       "name": "@vitejs/plugin-react",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "internal", "tools" ]
     },
     {
       "name": "@wojtekmaj/enzyme-adapter-react-17",
