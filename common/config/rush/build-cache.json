@@ -1,0 +1,19 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/build-cache.schema.json",
+    "buildCacheEnabled": true,
+    "cacheProvider": "local-only",
+    "azureBlobStorageConfiguration": {
+        "storageAccountName": "my-account",
+        "storageContainerName": "my-container",
+        "azureEnvironment": "AzurePublicCloud",
+        "blobPrefix": "my-prefix",
+        "isCacheWriteAllowed": true
+    },
+    
+    "amazonS3Configuration": {
+        "s3Region": "us-east-1",
+        "s3Bucket": "my-bucket",
+        "s3Prefix": "my-prefix",
+        "isCacheWriteAllowed": true
+    }
+}
