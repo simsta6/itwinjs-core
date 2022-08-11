@@ -79,10 +79,57 @@ export enum SettingsPriority {
   iModel = 500,
 }
 
+export interface SettingReader {
+  /** Get the setting for a SettingName.
+   * @param settingName The name of the setting
+   * @param defaultValue value returned if settingName is not present in any SettingDictionary.
+   * @note This method is generic on SettingType, but no type checking is actually performed at run time. So, if you
+   * use this method to get a setting with an expected type, but its value is a different type, the return type of this method will be wrong.
+   * You must always type check the result. Use the non-generic "get" methods (e.g. [[getString]]) if you only want the value
+   * if its type is correct.
+   */
+  getSetting<T extends SettingType>(settingName: SettingName, defaultValue?: T): T | undefined;
+
+  /** Get a string setting by SettingName.
+     * @param settingName The name of the setting
+     * @param defaultValue value returned if settingName is not present in any SettingDictionary, or if the setting is not a string.
+     */
+  getString(settingName: SettingName, defaultValue: string): string;
+  getString(settingName: SettingName, defaultValue?: string): string | undefined;
+
+  /** Get a boolean setting by SettingName.
+    * @param settingName The name of the setting
+    * @param defaultValue value returned if settingName is not present in any SettingDictionary, or if the setting is not a boolean.
+    */
+  getBoolean(settingName: SettingName, defaultValue: boolean): boolean;
+  getBoolean(settingName: SettingName, defaultValue?: boolean): boolean | undefined;
+
+  /** Get a number setting by SettingName.
+    * @param settingName The name of the setting
+    * @param defaultValue value returned if settingName is not present in any SettingDictionary, or if the setting is not a number.
+    */
+  getNumber(settingName: SettingName, defaultValue: number): number;
+  getNumber(settingName: SettingName): number | undefined;
+
+  /** Get an object setting by SettingName.
+    * @param settingName The name of the setting
+    * @param defaultValue value returned if settingName is not present in any SettingDictionary, or if the setting is not an object.
+    */
+  getObject<T extends object>(settingName: SettingName, defaultValue: T): T;
+  getObject<T extends object>(settingName: SettingName): T | undefined;
+
+  /** Get an array setting by SettingName.
+    * @param settingName The name of the setting
+    * @param defaultValue value returned if settingName is not present in any SettingDictionary, or if the setting is not an array.
+    */
+  getArray<T extends SettingType>(settingName: SettingName, defaultValue: Array<T>): Array<T>;
+  getArray<T extends SettingType>(settingName: SettingName): Array<T> | undefined;
+}
+
 /** The current set of Settings for a Workspace.
  * @beta
  */
-export interface Settings {
+export interface Settings extends SettingReader {
   /** @internal */
   close(): void;
 
