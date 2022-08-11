@@ -61,6 +61,13 @@ function getConfig(env) {
     stats: {
       warnings: false
     },
+    node: {
+      // provides the global variable named "global"
+      global: true,
+      // provide __filename and __dirname global variables
+      __filename: true,
+      __dirname: true,
+    },
     externals: {
       "electron": "electron",
       "bufferutil": "bufferutil",
@@ -69,7 +76,12 @@ function getConfig(env) {
     plugins: [
       new plugins.CopyAppAssetsPlugin("./assets/"),
       new plugins.CopyBentleyStaticResourcesPlugin(["assets"]),
-      new webpack.DefinePlugin({ "global.GENTLY": false, "process.version": "'v10.9.0'" })
+      new webpack.DefinePlugin({ "global.GENTLY": false, "process.version": "'v10.9.0'" }),
+      new webpack.ExternalsPlugin("commonjs", [
+        "@bentley/imodeljs-native",
+        "@bentley/imodeljs-native/package.json",
+        "node-report/api",
+      ]),
     ],
   };
 
