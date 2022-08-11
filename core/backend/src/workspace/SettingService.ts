@@ -5,7 +5,7 @@
 
 import * as fs from "fs";
 import { dirname } from "path";
-import { DbResult, LocalFileName } from "@itwin/core-common";
+import { BentleyError, DbResult, LocalFileName } from "@itwin/core-common";
 import { SQLiteDb } from "../SQLiteDb";
 import { IModelJsFs } from "../IModelJsFs";
 import { SettingName, SettingObject, SettingType } from "./Settings";
@@ -131,16 +131,16 @@ class SettingDb extends SQLiteDb {
             stmt.bindBlob(3, value);
           } else {
             stmt.bindString(2, "object");
-            stmt.bindString(3, JSON.stringify(value))
-          };
+            stmt.bindString(3, JSON.stringify(value));
+          }
           break;
         default:
           throw new Error("illegal setting value type");
       }
-      if (stmt.step() !== DbResult.BE_SQLITE_DONE)
-        throw new Error("error saving setting value type");
 
+      const rc = stmt.step();
+      if (rc !== DbResult.BE_SQLITE_DONE)
+        throw new BentleyError(rc, "error saving setting value type");
     });
   }
-}
 }
