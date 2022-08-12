@@ -15,8 +15,11 @@ if (!requiredPkgVer) {
   requiredPkgVer = require(path.join(packageRoot, npFolder, "@bentley/imodeljs-native/package.json"))["version"];
 }
 // platform/os is configured here
-const os = "ios";
-const platform = "arm64";
+// const os = "ios";
+const os = "darwin";
+// const platform = "arm64";
+const platform = "x64";
+
 
 const targetPkgDir = path.join(packageRoot, npFolder, "@bentley/imodeljs-native");
 const targetNMDir = path.join(targetPkgDir, "node_modules");

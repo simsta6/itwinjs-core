@@ -33,14 +33,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     completionHandler: @escaping () -> Void) {
         IModelJsHost.sharedInstance().backgroundDownloadCompletionHandler = completionHandler;
     }
-    
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-      // Sends the URL to the current authorization flow (if any) which will
-      // process it if it relates to an authorization response.
-        return IModelJsHost.sharedInstance().resumeExternalUserAgentFlow(url)
-      // Your additional URL handling (if any)
-    }
 }
 

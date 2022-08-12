@@ -7,6 +7,8 @@ import { MobileHostOpts } from "@itwin/core-mobile/lib/cjs/MobileBackend";
 import { getRpcInterfaces, initializeDtaBackend } from "./Backend";
 
 const dtaMobileMain = (async () => {
+  // eslint-disable-next-line no-debugger
+  debugger;
   const opts: MobileHostOpts = {
     mobileHost: {
       rpcInterfaces: getRpcInterfaces(),
