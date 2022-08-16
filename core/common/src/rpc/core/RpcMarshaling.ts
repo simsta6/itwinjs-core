@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module RpcInterface
+ *
  */
 
 import { Buffer } from "buffer";
@@ -41,20 +42,26 @@ export interface RpcSerializedValue {
 
 /** @internal */
 export namespace RpcSerializedValue {
-  export function create(objects = "", data: Uint8Array[] = []): RpcSerializedValue {
+  export function create(
+    objects = "",
+    data: Uint8Array[] = []
+  ): RpcSerializedValue {
     return { objects, data };
   }
 }
 
 /** @internal */
 export class RpcMarshaling {
-  private constructor() { }
+  private constructor() {}
 
   /** Serializes a value. */
-  public static async serialize(protocol: RpcProtocol | undefined, value: any): Promise<RpcSerializedValue> {
+  public static async serialize(
+    protocol: RpcProtocol | undefined,
+    value: any
+  ): Promise<RpcSerializedValue> {
     const serialized = RpcSerializedValue.create();
 
-    if (typeof (value) === "undefined") {
+    if (typeof value === "undefined") {
       return serialized;
     }
 
@@ -68,7 +75,10 @@ export class RpcMarshaling {
   }
 
   /** Deserializes a value. */
-  public static deserialize(protocol: RpcProtocol | undefined, value: RpcSerializedValue): any {
+  public static deserialize(
+    protocol: RpcProtocol | undefined,
+    value: RpcSerializedValue
+  ): any {
     if (value.objects === "") {
       return undefined;
     }
@@ -80,7 +90,10 @@ export class RpcMarshaling {
       result = JSON.parse(value.objects, WireFormat.unmarshal);
     } catch (error) {
       if (error instanceof SyntaxError)
-        throw new IModelError(BentleyStatus.ERROR, `Invalid JSON: "${value.objects}"`);
+        throw new IModelError(
+          BentleyStatus.ERROR,
+          `Invalid JSON: "${value.objects}"`
+        );
       throw error;
     }
     marshalingTarget = undefined as any;
@@ -108,7 +121,12 @@ class WireFormat {
 
   /** JSON.parse reviver callback. */
   public static unmarshal(_key: string, value: any) {
-    if (typeof (value) === "object" && value !== null && value.hasOwnProperty("isBinary") && value.isBinary) {
+    if (
+      typeof value === "object" &&
+      value !== null &&
+      value.hasOwnProperty("isBinary") &&
+      value.isBinary
+    ) {
       return WireFormat.unmarshalBinary(value);
     }
 
@@ -117,7 +135,12 @@ class WireFormat {
 
   private static marshalBinary(value: any): any {
     if (value instanceof Uint8Array || Buffer.isBuffer(value)) {
-      const marker: MarshalingBinaryMarker = { isBinary: true, index: -1, size: value.byteLength, chunks: 1 };
+      const marker: MarshalingBinaryMarker = {
+        isBinary: true,
+        index: -1,
+        size: value.byteLength,
+        chunks: 1,
+      };
 
       if (chunkThreshold && value.byteLength > chunkThreshold) {
         marker.index = marshalingTarget.data.length;
@@ -127,12 +150,14 @@ class WireFormat {
         const end = cursor + value.byteLength;
         let chunk = chunkThreshold;
 
-        for (; ;) {
+        for (;;) {
           if (cursor >= end) {
             break;
           }
 
-          marshalingTarget.data.push(new Uint8Array(value.buffer, cursor, chunk));
+          marshalingTarget.data.push(
+            new Uint8Array(value.buffer, cursor, chunk)
+          );
           ++marker.chunks;
           cursor += chunk;
 
@@ -152,7 +177,10 @@ class WireFormat {
 
   private static unmarshalBinary(value: MarshalingBinaryMarker): any {
     if (value.index >= marshalingTarget.data.length) {
-      throw new IModelError(BentleyStatus.ERROR, `Cannot unmarshal missing binary value.`);
+      throw new IModelError(
+        BentleyStatus.ERROR,
+        `Cannot unmarshal missing binary value.`
+      );
     }
 
     if (value.chunks === 0) {
@@ -177,10 +205,30 @@ class WireFormat {
   private static marshalError(value: any) {
     if (value instanceof Error) {
       const props = Object.getOwnPropertyDescriptors(value);
-      props.isError = { configurable: true, enumerable: true, writable: true, value: true };
-      props.name = { configurable: true, enumerable: true, writable: true, value: value.name };
-      props.message = { configurable: true, enumerable: true, writable: true, value: value.message };
-      props.stack = { configurable: true, enumerable: true, writable: true, value: value.stack };
+      props.isError = {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: true,
+      };
+      props.name = {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: value.name,
+      };
+      props.message = {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: value.message,
+      };
+      props.stack = {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: value.stack,
+      };
       return Object.create(Object.prototype, props);
     }
 

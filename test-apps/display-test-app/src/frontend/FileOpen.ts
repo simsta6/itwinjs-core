@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { ProcessDetector } from "@itwin/core-bentley";
-import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import { OpenDialogOptions } from "electron";
+import { ElectronApp } from "../../../../core/electron/src/frontend/ElectronApp";
 
 export interface BrowserFileSelector {
   input: HTMLInputElement;

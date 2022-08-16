@@ -172,7 +172,7 @@
     },
     {
       "name": "@itwin/core-electron",
-      "allowedCategories": [ "internal" ]
+      "allowedCategories": [ "backend", "internal" ]
     },
     {
       "name": "@itwin/core-extension",
@@ -920,6 +920,10 @@
     },
     {
       "name": "react-router-dom",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "react-script",
       "allowedCategories": [ "internal" ]
     },
     {

@@ -3196,6 +3196,9 @@ importers:
       internal-tools: workspace:*
       npm-run-all: ^4.1.5
       null-loader: ^0.1.1
+      react: ^17.0.0
+      react-dom: ^17.0.0
+      react-script: ^2.0.5
       rimraf: ^3.0.2
       semver: ^7.3.5
       typescript: ~4.4.0
@@ -3228,11 +3231,14 @@ importers:
       '@itwin/reality-data-client': 0.7.0
       '@itwin/webgl-compatibility': link:../../core/webgl-compatibility
       body-parser: 1.20.0
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-script: 2.0.5
     devDependencies:
       '@babel/core': 7.18.2
       '@babel/plugin-syntax-flow': 7.17.12_@babel+core@7.18.2
       '@babel/plugin-transform-react-jsx': 7.17.12_@babel+core@7.18.2
-      '@bentley/react-scripts': 5.0.0-dev.4_0a4b0bb70fd3a7dd173a0b1ca23ea74c
+      '@bentley/react-scripts': 5.0.0-dev.4_ba61b3eb9c05ecf85ed47045bd79166a
       '@esbuild-plugins/node-globals-polyfill': 0.1.1
       '@esbuild-plugins/node-modules-polyfill': 0.1.4
       '@itwin/backend-webpack-tools': link:../../tools/backend-webpack
@@ -6651,7 +6657,7 @@ packages:
     resolution: {integrity: sha512-ufOI4M0zyRuf9qvQfVuvra3AFNA2xo9OOPjYq6/ffLptQtoocrmnLq+pfhMMPnY5JnSSt0CavzhxM0d6Ynzkhg==}
     dev: false
 
-  /@bentley/react-scripts/5.0.0-dev.4_0a4b0bb70fd3a7dd173a0b1ca23ea74c:
+  /@bentley/react-scripts/5.0.0-dev.4_ba61b3eb9c05ecf85ed47045bd79166a:
     resolution: {integrity: sha512-2jkL8kvzAbYvBGMlw1pT1XRNUutWvSUd/XYDO98R7QZnyvb4p70Erk0blqwZQCug9a6yCwASXXA0H4Nhgn41Rw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
@@ -6698,6 +6704,7 @@ packages:
       postcss-normalize: 10.0.1_e75cc2f88047350d88863901d59c799b
       postcss-preset-env: 7.7.1_postcss@8.4.14
       prompts: 2.4.2
+      react: 17.0.2
       react-app-polyfill: 3.0.0
       react-dev-utils: 12.0.1_9c235ea83234dc48599c4a5e6a3289a8
       react-refresh: 0.11.0
@@ -20296,6 +20303,10 @@ packages:
       react-is: 16.13.1
       tiny-invariant: 1.2.0
       tiny-warning: 1.0.3
+    dev: false
+
+  /react-script/2.0.5:
+    resolution: {integrity: sha512-hLFLMFAH3Rr0VJisBz/bPyaJxMEimQGvuVOBXyn3t/nmlbV6mF+nghCPoY1V4dzIi+M1A8iyyXId1cgg8eS6XA==}
     dev: false
 
   /react-select-event/5.0.0:

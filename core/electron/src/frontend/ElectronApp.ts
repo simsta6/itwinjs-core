@@ -38,13 +38,13 @@ class ElectronIpc implements IpcSocketFrontend {
 }
 
 /** @beta */
-export type ElectronAppOpts = NativeAppOpts;
+type ElectronAppOpts = NativeAppOpts;
 
 /**
  * Frontend of an Electron App.
  * @beta
  */
-export class ElectronApp {
+class ElectronApp {
   private static _ipc?: ElectronIpc;
   public static get isValid(): boolean {
     return undefined !== this._ipc;
@@ -125,3 +125,5 @@ export class ElectronApp {
     ) as PromiseReturnType<Electron.App[T]>;
   }
 }
+
+export { ElectronApp, ElectronAppOpts };
