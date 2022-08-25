@@ -14,7 +14,9 @@
     "build:clean": "lage build --no-cache",
     "build:profile": "lage build --no-cache --profile",
     "clean": "lage clean --no-cache && cospace purge && pnpm i -w cospace",
-    "setOverrides": "cospace override"
+    "setOverrides": "cospace override",
+    "purge": "cospace purge",
+    "build:turbo": "turbo run build"
   },
   "keywords": [
     "Bentley",
