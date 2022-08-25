@@ -10,7 +10,7 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "lage build",
+    "build:lage": "lage build",
     "build:clean": "lage build --no-cache",
     "build:profile": "lage build --no-cache --profile",
     "clean": "lage clean --no-cache && cospace purge && pnpm i -w cospace",

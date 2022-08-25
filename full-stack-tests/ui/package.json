@@ -9,8 +9,6 @@
   },
   "private": true,
   "scripts": {
-    "build": "",
-    "build:ci": "",
     "clean": "",
     "cover": "",
     "docs": "",

@@ -18,8 +18,6 @@
     "no-internal-report": "dist/bin/no-internal-report.js"
   },
   "scripts": {
-    "build": "",
-    "build:ci": "",
     "clean": "",
     "lint": "",
     "test": "",

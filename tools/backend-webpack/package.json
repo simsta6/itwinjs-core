@@ -12,8 +12,6 @@
     "url": "http://www.bentley.com"
   },
   "scripts": {
-    "build": "",
-    "build:ci": "",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
     "docs": "",
     "lint": "",
