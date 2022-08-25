@@ -2,21 +2,19 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-
 import { assert, expect } from "chai";
 import { Base64 } from "js-base64";
 import * as path from "path";
 import * as semver from "semver";
 import * as sinon from "sinon";
-import { CloudSqlite } from "@bentley/imodeljs-native";
 import { DbResult, Guid, GuidString, Id64, Id64String, Logger, OpenMode, ProcessDetector, using } from "@itwin/core-bentley";
 import {
-  AxisAlignedBox3d, BisCodeSpec, BriefcaseIdValue, Code, CodeScopeSpec, CodeSpec, ColorByName, ColorDef, DefinitionElementProps, DisplayStyleProps,
-  DisplayStyleSettings, DisplayStyleSettingsProps, EcefLocation, ElementProps, EntityMetaData, EntityProps, FilePropertyProps, FontMap, FontType,
-  GeoCoordinatesRequestProps, GeographicCRS, GeographicCRSProps, GeometricElementProps, GeometryParams, GeometryStreamBuilder, ImageSourceFormat,
-  IModel, IModelCoordinatesRequestProps, IModelError, IModelStatus, MapImageryProps, ModelProps, PhysicalElementProps,
-  PointWithStatus, PrimitiveTypeCode, RelatedElement, RenderMode, SchemaState, SpatialViewDefinitionProps, SubCategoryAppearance,
-  TextureMapping, TextureMapProps, TextureMapUnits, ViewDefinitionProps, ViewFlagProps, ViewFlags,
+  AxisAlignedBox3d, BisCodeSpec, BriefcaseIdValue, ChangesetIdWithIndex, Code, CodeScopeSpec, CodeSpec, ColorByName, ColorDef, DefinitionElementProps,
+  DisplayStyleProps, DisplayStyleSettings, DisplayStyleSettingsProps, EcefLocation, ElementProps, EntityMetaData, EntityProps, FilePropertyProps,
+  FontMap, FontType, GeoCoordinatesRequestProps, GeographicCRS, GeographicCRSProps, GeometricElementProps, GeometryParams, GeometryStreamBuilder,
+  ImageSourceFormat, IModel, IModelCoordinatesRequestProps, IModelError, IModelStatus, MapImageryProps, ModelProps, PhysicalElementProps,
+  PointWithStatus, PrimitiveTypeCode, RelatedElement, RenderMode, SchemaState, SpatialViewDefinitionProps, SubCategoryAppearance, TextureMapping,
+  TextureMapProps, TextureMapUnits, ViewDefinitionProps, ViewFlagProps, ViewFlags,
 } from "@itwin/core-common";
 import {
   Geometry, GeometryQuery, LineString3d, Loop, Matrix4d, Point3d, PolyfaceBuilder, Range3d, StrokeOptions, Transform, XYZProps, YawPitchRollAngles,
@@ -32,9 +30,10 @@ import {
   SqliteValue, SqliteValueType, StandaloneDb, SubCategory, Subject, Texture, ViewDefinition,
 } from "../../core-backend";
 import { BriefcaseDb } from "../../IModelDb";
-import { HubMock } from "../HubMock";
-import { DisableNativeAssertions, IModelTestUtils } from "../index";
+import { HubMock } from "../../HubMock";
 import { KnownTestLocations } from "../KnownTestLocations";
+import { IModelTestUtils } from "../IModelTestUtils";
+import { DisableNativeAssertions } from "../TestUtils";
 
 // spell-checker: disable
 
@@ -63,6 +62,7 @@ describe("iModel", () => {
 
   before(async () => {
     originalEnv = { ...process.env };
+
     IModelTestUtils.registerTestBimSchema();
     imodel1 = IModelTestUtils.createSnapshotFromSeed(IModelTestUtils.prepareOutputFile("IModel", "test.bim"), IModelTestUtils.resolveAssetFile("test.bim"));
     imodel2 = IModelTestUtils.createSnapshotFromSeed(IModelTestUtils.prepareOutputFile("IModel", "CompatibilityTestSeed.bim"), IModelTestUtils.resolveAssetFile("CompatibilityTestSeed.bim"));
@@ -375,7 +375,7 @@ describe("iModel", () => {
     expect(patternMap.TextureId).to.equal(textureMapProps.TextureId);
   });
 
-  it.skip("attempt to apply material to new element in imodel5", () => {
+  it("attempt to apply material to new element in imodel5", () => {
     // This is an encoded png containing a 3x3 square with white in top left pixel, blue in middle pixel, and green in
     // bottom right pixel.  The rest of the square is red.
     const pngData = [137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 3, 0, 0, 0, 3, 8, 2, 0, 0, 0, 217, 74, 34, 232, 0, 0, 0, 1, 115, 82, 71, 66, 0, 174, 206, 28, 233, 0, 0, 0, 4, 103, 65, 77, 65, 0, 0, 177, 143, 11, 252, 97, 5, 0, 0, 0, 9, 112, 72, 89, 115, 0, 0, 14, 195, 0, 0, 14, 195, 1, 199, 111, 168, 100, 0, 0, 0, 24, 73, 68, 65, 84, 24, 87, 99, 248, 15, 4, 12, 12, 64, 4, 198, 64, 46, 132, 5, 162, 254, 51, 0, 0, 195, 90, 10, 246, 127, 175, 154, 145, 0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130];
@@ -478,6 +478,7 @@ describe("iModel", () => {
     const styleId = imodel2.elements.insertElement(props);
     let style = imodel2.elements.getElement<DisplayStyle3d>(styleId);
     expect(style instanceof DisplayStyle3d).to.be.true;
+    expect(style.code.spec).equal(imodel2.codeSpecs.getByName(BisCodeSpec.displayStyle).id);
 
     expect(style.settings.viewFlags.renderMode).to.equal(RenderMode.SolidFill);
     expect(style.settings.backgroundColor.equals(ColorDef.blue)).to.be.true;
@@ -944,7 +945,7 @@ describe("iModel", () => {
     const categoryId = SpatialCategory.insert(imodel4, IModel.dictionaryId, "MyTestCategory", new SubCategoryAppearance());
     const category = imodel4.elements.getElement<SpatialCategory>(categoryId);
     const subCategory = imodel4.elements.getElement<SubCategory>(category.myDefaultSubCategoryId());
-    assert.throws(() => imodel4.elements.deleteElement(categoryId), IModelError);
+    assert.throws(() => imodel4.elements.deleteElement(categoryId), "error deleting element");
     assert.exists(imodel4.elements.getElement(categoryId), "Category deletes should be blocked in native code");
     assert.exists(imodel4.elements.getElement(subCategory.id), "Children should not be deleted if parent delete is blocked");
 
@@ -1691,23 +1692,6 @@ describe("iModel", () => {
 
   if (!ProcessDetector.isIOSAppBackend) {
     it("should be able to reproject with iModel coordinates to or from any other GeographicCRS", async () => {
-      // this commented-out code allows gcs workspace files. This test should be moved to an integration test when
-      // the gcs data is no longer delivered with the backend.
-      // const addGcsWs = async (id: string) => {
-      //   try {
-      //     const ws = await IModelHost.appWorkspace.getContainer({ id });
-      //     const fileName = ws.localFile;
-      //     IModelHost.appWorkspace.dropContainer(ws);
-      //     expect(IModelHost.platform.addGcsWorkspace(fileName)).to.be.true;
-      //   } catch (e) {
-      //     // eslint-disable-next-line no-console
-      //     console.log(`cannot load GCS Workspace: ${id}`);
-      //   }
-      // };
-
-      // await addGcsWs("usa");
-      // await addGcsWs("uk");
-
       const convertTest = async (fileName: string, fileGCS: GeographicCRSProps, datum: string | GeographicCRSProps, inputCoord: XYZProps, outputCoord: PointWithStatus) => {
 
         const args = {
@@ -1962,6 +1946,39 @@ describe("iModel", () => {
     iModel2.close();
   });
 
+  it("should be able to create a snapshot IModel and set geolocation by ECEF with 0,0,0 rotation", async () => {
+    const args = {
+      rootSubject: { name: "TestSubject", description: "test iTwin" },
+      client: "ABC Engineering",
+      globalOrigin: { x: 10, y: 10 },
+      projectExtents: { low: { x: -300, y: -300, z: -20 }, high: { x: 500, y: 500, z: 400 } },
+      guid: Guid.createValue(),
+    };
+
+    const ecef = new EcefLocation({
+      origin: [42, 21, 0],
+      orientation: { yaw: 0, pitch: 0, roll: 0 },
+    });
+
+    const testFile = IModelTestUtils.prepareOutputFile("IModel", "TestSnapshot3_000.bim");
+    const iModel = SnapshotDb.createEmpty(testFile, args);
+
+    assert.isTrue(iModel.ecefLocation === undefined);
+
+    iModel.ecefLocation = ecef;
+
+    iModel.updateIModelProps();
+    iModel.saveChanges();
+    iModel.close();
+
+    const iModel2 = SnapshotDb.openFile(testFile);
+
+    assert.isTrue(iModel2.ecefLocation !== undefined);
+    assert.isTrue(iModel2.ecefLocation!.isAlmostEqual(ecef));
+
+    iModel2.close();
+  });
+
   it("presence of a GCS imposes the ecef value", async () => {
     const args = {
       rootSubject: { name: "TestSubject", description: "test iTwin" },
@@ -2044,16 +2061,20 @@ describe("iModel", () => {
   });
 
   it("should be able to open checkpoints", async () => {
-    // Just create an empty snapshot, and we'll use that as our fake "checkpoint" (so it opens)
-    const dbPath = IModelTestUtils.prepareOutputFile("IModel", "TestCheckpoint.bim");
-    const snapshot = SnapshotDb.createEmpty(dbPath, { rootSubject: { name: "test" } });
-    const iModelId = snapshot.iModelId;
-    const iTwinId = Guid.createValue();
-    const changeset = IModelTestUtils.generateChangeSetId();
-    snapshot.nativeDb.setITwinId(iTwinId);
-    snapshot.nativeDb.saveLocalValue("ParentChangeSetId", changeset.id); // even fake checkpoints need a changesetId!
-    snapshot.saveChanges();
-    snapshot.close();
+    const changeset: ChangesetIdWithIndex = { id: "fakeChangeSetId", index: 10 };
+    const iTwinId = "fakeIModelId";
+    const iModelId = "fakeIModelId";
+    const cloudContainer = { accessToken: "sas" };
+    const fakeSnapshotDb: any = {
+      cloudContainer,
+      isReadonly: () => true,
+      isOpen: () => false,
+      getIModelId: () => iModelId,
+      getITwinId: () => iTwinId,
+      getCurrentChangeset: () => changeset,
+      setIModelDb: () => { },
+      closeIModel: () => { },
+    };
 
     const errorLogStub = sinon.stub(Logger, "logError").callsFake(() => { });
     const infoLogStub = sinon.stub(Logger, "logInfo").callsFake(() => { });
@@ -2061,107 +2082,64 @@ describe("iModel", () => {
     // Mock iModelHub
     const mockCheckpointV2: V2CheckpointAccessProps = {
       accountName: "testAccount",
-      containerId: `imodelblocks-${iModelId}`,
+      containerId: "imodelblocks-123",
       sasToken: "testSAS",
       dbName: "testDb",
       storageType: "azure?sas=1",
     };
 
     sinon.stub(IModelHost, "hubAccess").get(() => HubMock);
-    sinon.stub(IModelHost.hubAccess, "queryV2Checkpoint").callsFake(async () => mockCheckpointV2);
+    sinon.stub(V2CheckpointManager, "attach").callsFake(async () => { return { dbName: "fakeDb", container: { accessToken: "sas" } as any }; });
+    const queryStub = sinon.stub(IModelHost.hubAccess, "queryV2Checkpoint").callsFake(async () => mockCheckpointV2);
 
-    // Mock BlobDaemon
-    sinon.stub(CloudSqlite.Daemon, "getDbFileName").callsFake(() => dbPath);
-    const daemonSuccessResult = { result: DbResult.BE_SQLITE_OK, errMsg: "" };
-    const daemonErrorResult = { result: DbResult.BE_SQLITE_ERROR, errMsg: "NOT GOOD" };
-    const commandStub = sinon.stub(CloudSqlite.Daemon, "command").callsFake(async () => daemonSuccessResult);
+    const openDgnDbStub = sinon.stub(SnapshotDb, "openDgnDb").returns(fakeSnapshotDb);
+    sinon.stub(IModelDb.prototype, "initializeIModelDb" as any);
 
-    process.env.BLOCKCACHE_DIR = "/foo/";
     const accessToken = "token";
     const checkpoint = await SnapshotDb.openCheckpointV2({ accessToken, iTwinId, iModelId, changeset });
+
+    expect(openDgnDbStub.calledOnce).to.be.true;
+    expect(openDgnDbStub.firstCall.firstArg.path).to.equal("fakeDb");
+
     const props = checkpoint.getRpcProps();
     assert.equal(props.iModelId, iModelId);
     assert.equal(props.iTwinId, iTwinId);
     assert.equal(props.changeset?.id, changeset.id);
-    assert.equal(commandStub.callCount, 1);
-    assert.equal(commandStub.firstCall.firstArg, "attach");
     assert.equal(errorLogStub.callCount, 1);
     assert.include(errorLogStub.args[0][1], "attached with timestamp that expires before");
 
     errorLogStub.resetHistory();
-    await checkpoint.reattachDaemon(accessToken);
-    assert.equal(commandStub.callCount, 2);
-    assert.equal(commandStub.secondCall.firstArg, "attach");
+    expect(cloudContainer.accessToken).equal("sas");
+    await checkpoint.refreshContainerSas(accessToken);
+    expect(cloudContainer.accessToken).equal("testSAS");
+
     assert.equal(errorLogStub.callCount, 1);
     assert.include(errorLogStub.args[0][1], "attached with timestamp that expires before");
     assert.equal(infoLogStub.callCount, 2);
-    assert.include(infoLogStub.args[0][1], "attempting to reattach");
-    assert.include(infoLogStub.args[1][1], "reattached checkpoint");
+    assert.include(infoLogStub.args[0][1], "attempting to refresh");
+    assert.include(infoLogStub.args[1][1], "refreshed checkpoint");
 
     errorLogStub.resetHistory();
-    commandStub.callsFake(async () => daemonErrorResult);
-    await expect(checkpoint.reattachDaemon(accessToken)).to.eventually.be.rejectedWith("attach failed");
+    queryStub.callsFake(async () => { throw new Error("no checkpoint"); });
+    await expect(checkpoint.refreshContainerSas(accessToken)).to.eventually.be.rejectedWith("no checkpoint");
 
     checkpoint.close();
   });
 
-  it("should throw for invalid v2 checkpoints", async () => {
-    const dbPath = IModelTestUtils.prepareOutputFile("IModel", "TestCheckpoint.bim");
-    const snapshot = SnapshotDb.createEmpty(dbPath, { rootSubject: { name: "test" } });
-    const iModelId = Guid.createValue();  // This is wrong - it should be `snapshot.getGuid()`!
-    const iTwinId = Guid.createValue();
-    const changeset = IModelTestUtils.generateChangeSetId();
-    snapshot.nativeDb.setITwinId(iTwinId);
-    snapshot.nativeDb.saveLocalValue("ParentChangeSetId", changeset.id);
-    snapshot.saveChanges();
-    snapshot.close();
-
-    // Mock iModelHub
-    const mockCheckpointV2: V2CheckpointAccessProps = {
-      accountName: "testAccount",
-      containerId: `imodelblocks-${iModelId}`,
-      sasToken: "testSAS",
-      dbName: "testDb",
-      storageType: "azure?sas=1",
-    };
-    sinon.stub(IModelHost, "hubAccess").get(() => HubMock);
-    sinon.stub(IModelHost.hubAccess, "queryV2Checkpoint").callsFake(async () => mockCheckpointV2);
-
-    // Mock blockcacheVFS daemon
-    sinon.stub(CloudSqlite.Daemon, "getDbFileName").callsFake(() => dbPath);
-    const daemonSuccessResult = { result: DbResult.BE_SQLITE_OK, errMsg: "" };
-    sinon.stub(CloudSqlite.Daemon, "command").callsFake(async () => daemonSuccessResult);
-
-    const accessToken = "token";
-
-    process.env.BLOCKCACHE_DIR = ""; // try without setting daemon dir
-    let error = await getIModelError(SnapshotDb.openCheckpointV2({ accessToken, iTwinId: Guid.createValue(), iModelId: Guid.createValue(), changeset: IModelTestUtils.generateChangeSetId() }));
-    expectIModelError(IModelStatus.BadRequest, error); // bad request because daemon dir wasn't set
-
-    process.env.BLOCKCACHE_DIR = "/foo/";
-    error = await getIModelError(SnapshotDb.openCheckpointV2({ accessToken, iTwinId, iModelId, changeset }));
-    expectIModelError(IModelStatus.ValidationFailed, error);
-  });
-
   it("should throw for missing/invalid checkpoint in hub", async () => {
-    process.env.BLOCKCACHE_DIR = "/foo/";
+    process.env.CHECKPOINT_CACHE_DIR = "/foo/";
     sinon.stub(IModelHost, "hubAccess").get(() => HubMock);
     sinon.stub(IModelHost.hubAccess, "queryV2Checkpoint").callsFake(async () => undefined);
 
     const accessToken = "token";
-    let error = await getIModelError(SnapshotDb.openCheckpointV2({ accessToken, iTwinId: Guid.createValue(), iModelId: Guid.createValue(), changeset: IModelTestUtils.generateChangeSetId() }));
-    expectIModelError(IModelStatus.NotFound, error);
-
-    error = await getIModelError(SnapshotDb.openCheckpointV2({ accessToken, iTwinId: Guid.createValue(), iModelId: Guid.createValue(), changeset: IModelTestUtils.generateChangeSetId() }));
+    const error = await getIModelError(SnapshotDb.openCheckpointV2({ accessToken, iTwinId: Guid.createValue(), iModelId: Guid.createValue(), changeset: IModelTestUtils.generateChangeSetId() }));
     expectIModelError(IModelStatus.NotFound, error);
   });
 
   it("attempting to re-attach a non-checkpoint snapshot should be a no-op", async () => {
-    process.env.BLOCKCACHE_DIR = "/foo/";
+    process.env.CHECKPOINT_CACHE_DIR = "/foo/";
     const accessToken = "token";
-    const attachMock = sinon.stub(V2CheckpointManager, "attach").callsFake(async () => ({ filePath: "BAD", expiryTimestamp: Date.now() }));
-    await imodel1.reattachDaemon(accessToken);
-    assert.isTrue(attachMock.notCalled);
+    await imodel1.refreshContainerSas(accessToken);
   });
 
   function hasClassView(db: IModelDb, name: string): boolean {
@@ -2182,7 +2160,6 @@ describe("iModel", () => {
     assert.equal(standaloneDb1.getBriefcaseId(), BriefcaseIdValue.Unassigned);
     assert.equal(standaloneDb1.pathName, standaloneFile1);
     assert.equal(standaloneDb1, StandaloneDb.tryFindByKey(standaloneDb1.key), "Should be in the list of open StandaloneDbs");
-    assert.isFalse(standaloneDb1.nativeDb.isEncrypted());
     assert.equal(standaloneDb1.elements.getRootSubject().code.value, standaloneRootSubjectName);
     assert.isTrue(standaloneDb1.isOpen);
     assert.isTrue(Guid.isV4Guid(standaloneDb1.iModelId));
@@ -2228,10 +2205,6 @@ describe("iModel", () => {
     assert.equal(snapshotDb1, SnapshotDb.tryFindByKey(snapshotDb1.key));
     assert.equal(snapshotDb2, SnapshotDb.tryFindByKey(snapshotDb2.key));
     assert.equal(snapshotDb3, SnapshotDb.tryFindByKey(snapshotDb3.key));
-    assert.isFalse(snapshotDb1.nativeDb.isEncrypted());
-    assert.isFalse(snapshotDb2.nativeDb.isEncrypted());
-    assert.isFalse(snapshotDb3.nativeDb.isEncrypted());
-    assert.isFalse(imodel1.nativeDb.isEncrypted());
     const iModelGuid1: GuidString = snapshotDb1.iModelId;
     const iModelGuid2: GuidString = snapshotDb2.iModelId;
     const iModelGuid3: GuidString = snapshotDb3.iModelId;
@@ -2286,59 +2259,6 @@ describe("iModel", () => {
     assert.isUndefined(SnapshotDb.tryFindByKey(snapshotDb1.key));
     assert.isUndefined(SnapshotDb.tryFindByKey(snapshotDb2.key));
     assert.isUndefined(SnapshotDb.tryFindByKey(snapshotDb3.key));
-  });
-
-  it("Password-protected Snapshot iModels", () => {
-    const snapshotFile1: string = IModelTestUtils.prepareOutputFile("IModel", "pws1.bim");
-    const snapshotFile2: string = IModelTestUtils.prepareOutputFile("IModel", "pws2.bim");
-    const snapshotFile3: string = IModelTestUtils.prepareOutputFile("IModel", "pws3.bim");
-    const snapshotFile4: string = IModelTestUtils.prepareOutputFile("IModel", "pws4.bim");
-
-    // create snapshot from scratch without a password, then unnecessarily specify a password to open
-    let snapshotDb1 = SnapshotDb.createFrom(imodel1, snapshotFile1);
-    assert.equal(snapshotDb1.getBriefcaseId(), BriefcaseIdValue.Unassigned);
-    snapshotDb1.close();
-    snapshotDb1 = SnapshotDb.openFile(snapshotFile1, { password: "unnecessaryPassword" });
-    assert.isTrue(snapshotDb1.isSnapshotDb());
-    assert.isTrue(snapshotDb1.isSnapshot);
-    assert.isTrue(snapshotDb1.isReadonly, "Expect snapshots to be read-only after open");
-    assert.isFalse(snapshotDb1.nativeDb.isEncrypted());
-    assert.isFalse(hasClassView(snapshotDb1, "bis.Element"));
-
-    // create snapshot from scratch and give it a password
-    let snapshotDb2 = SnapshotDb.createEmpty(snapshotFile2, { rootSubject: { name: "Password-Protected" }, password: "password", createClassViews: true });
-    assert.equal(snapshotDb2.getBriefcaseId(), BriefcaseIdValue.Unassigned);
-    const subjectName2 = "TestSubject2";
-    const subjectId2 = Subject.insert(snapshotDb2, IModel.rootSubjectId, subjectName2);
-    assert.isTrue(Id64.isValidId64(subjectId2));
-    snapshotDb2.close();
-    snapshotDb2 = SnapshotDb.openFile(snapshotFile2, { password: "password" });
-    assert.isTrue(snapshotDb2.isSnapshotDb());
-    assert.isTrue(snapshotDb2.isSnapshot);
-    assert.isTrue(snapshotDb2.isReadonly, "Expect snapshots to be read-only after open");
-    assert.isTrue(snapshotDb2.nativeDb.isEncrypted());
-    assert.exists(snapshotDb2.elements.getElement(subjectId2));
-    assert.isTrue(hasClassView(snapshotDb2, "bis.Element"));
-
-    // create a new snapshot from a non-password-protected snapshot and then give it a password
-    let snapshotDb3 = SnapshotDb.createFrom(imodel1, snapshotFile3, { password: "password" });
-    assert.equal(snapshotDb3.getBriefcaseId(), BriefcaseIdValue.Unassigned);
-    snapshotDb3.close();
-    snapshotDb3 = SnapshotDb.openFile(snapshotFile3, { password: "password" });
-    assert.isTrue(snapshotDb3.isSnapshotDb());
-    assert.isTrue(snapshotDb3.isSnapshot);
-    assert.isTrue(snapshotDb3.isReadonly, "Expect snapshots to be read-only after open");
-    assert.isTrue(snapshotDb3.nativeDb.isEncrypted());
-
-    // it is invalid to create a snapshot from a password-protected iModel
-    assert.throws(() => SnapshotDb.createFrom(snapshotDb2, snapshotFile4), IModelError);
-    assert.isFalse(IModelJsFs.existsSync(snapshotFile4));
-    assert.throws(() => SnapshotDb.createFrom(snapshotDb2, snapshotFile4, { password: "password" }), IModelError);
-    assert.isFalse(IModelJsFs.existsSync(snapshotFile4));
-
-    snapshotDb1.close();
-    snapshotDb2.close();
-    snapshotDb3.close();
   });
 
   it("upgrade the domain schema in a StandaloneDb", async () => {
@@ -2546,6 +2466,17 @@ describe("iModel", () => {
     });
     element = imodel1.elements.getElement<SpatialCategory>(elementId);
     assert.equal(element.userLabel, "UserLabel"); // NOTE: userLabel is not modified when userLabel is not part of the input ElementProps
+
+    const elProps = imodel1.elements.getElementProps({ id: elementId, onlyBaseProperties: true });
+    expect(elProps.userLabel).equal(element.userLabel);
+    expect(elProps.classFullName).equal(SpatialCategory.classFullName);
+    expect(elProps.model).equal(element.model);
+    expect(elProps.code.value).equal(element.code.value);
+    expect(elProps.code.scope).equal(element.code.scope);
+    expect(elProps.code.spec).equal(element.code.spec);
+    expect(elProps.federationGuid).equal(element.federationGuid);
+    expect((elProps as any).isPrivate).undefined;
+    expect((elProps as any).isInstanceOfEntity).undefined;
 
     // update UserLabel to undefined
     element.userLabel = undefined;

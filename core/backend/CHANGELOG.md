@@ -1,6 +1,79 @@
 # Change Log - @itwin/core-backend
 
-This log was last generated on Fri, 15 Apr 2022 13:49:25 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Aug 2022 19:08:02 GMT and should not be manually modified.
+
+## 3.3.0
+Thu, 18 Aug 2022 19:08:02 GMT
+
+### Updates
+
+- upgrade mocha to version 10.0.0
+- Update links to BIS documentation.
+- vacuum is now an instance method
+- enable loading gcs data from workspace at https://geocoord-workspace.itwinjs.org/
+- Progress API for downloading changesets.
+- IModelHost.startup now accepts IModelHostOptions interface rather than IModelHostConfiguration instance
+- added computeSchemaChecksum function to IModelHost
+- Transport RPC requests over IPC when available.
+- make prefetch opt-in instead of opt-out
+- move HubMock to core-backend
+- retry v2checkpoint downloads when they fail with "Failure when receiving data from the peer"
+- set cloud cache size to 50G
+- move LocalHub to @internal in core-backend
+- deprecate collectPredecessorIds and getPredecessorIds in favor of collectReferenceIds and getReferenceIds
+- added SQLiteDb.withOpenDb
+
+## 3.2.8
+Tue, 09 Aug 2022 15:52:41 GMT
+
+_Version update only_
+
+## 3.2.7
+Mon, 01 Aug 2022 13:36:56 GMT
+
+_Version update only_
+
+## 3.2.6
+Fri, 15 Jul 2022 19:04:43 GMT
+
+_Version update only_
+
+## 3.2.5
+Wed, 13 Jul 2022 15:45:52 GMT
+
+_Version update only_
+
+## 3.2.4
+Tue, 21 Jun 2022 18:06:33 GMT
+
+_Version update only_
+
+## 3.2.3
+Fri, 17 Jun 2022 15:18:39 GMT
+
+_Version update only_
+
+## 3.2.2
+Fri, 10 Jun 2022 16:11:36 GMT
+
+_Version update only_
+
+## 3.2.1
+Tue, 07 Jun 2022 15:02:56 GMT
+
+_Version update only_
+
+## 3.2.0
+Fri, 20 May 2022 13:10:54 GMT
+
+### Updates
+
+- Added new additionalTransformPath property to GeodeticDatums and tests
+- changed name of GCS in test dataset
+- Create an ios test project to run webpacked core tests.
+- Added "getMassPropertiesPerCandidate" RPC operation to IModelReadRpcInterface which returns mass properties for each candidate separately.
+- Add two new rpcimpls, hydrateViewState and getCustomViewState3dData
+- add imodel import context state saving/loading functions for transformer
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT

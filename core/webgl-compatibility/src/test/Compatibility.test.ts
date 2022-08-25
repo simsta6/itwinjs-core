@@ -51,6 +51,7 @@ class OverriddenFunctions {
   }
 }
 
+// NB: These tests run in chromium via puppeteer. On non-Windows platforms, it uses software rendering. On Windows, it uses hardware rendering if available.
 describe("Render Compatibility", () => {
   let overriddenFunctions: OverriddenFunctions;
 
@@ -62,24 +63,9 @@ describe("Render Compatibility", () => {
     overriddenFunctions.restore();
   });
 
-  // NB: We assume software rendering for these tests because puppeteer only supports software rendering.
-  // Further, we run in the context of Chrome, whose Swift software renderer fully supports our renderer.
-
-  it("should query proper render compatibility info assuming software rendering causing performance caveat", () => {
+  it("should provide error message if failed to produce context", () => {
     const compatibility = queryRenderCompatibility(false, createContext);
-    expect(compatibility.status).to.equal(WebGLRenderCompatibilityStatus.MajorPerformanceCaveat);
-    expect(compatibility.contextErrorMessage).to.not.be.undefined;
-  });
-
-  it("should query proper render compatibility info assuming software rendering ignoring performance caveat", () => {
-    overriddenFunctions.overrideCreateContext(undefined, false);
-    const compatibility = queryRenderCompatibility(false, createContext);
-    expect(compatibility.status).to.equal(WebGLRenderCompatibilityStatus.MissingOptionalFeatures);
-    expect(compatibility.missingRequiredFeatures.length).to.equal(0);
-    expect(compatibility.missingOptionalFeatures.length).to.equal(2);
-    expect(compatibility.missingOptionalFeatures[0]).to.equal("fragment depth");
-    expect(compatibility.contextErrorMessage).to.be.undefined;
-    overriddenFunctions.restore();
+    expect(compatibility.contextErrorMessage !== undefined).to.equal(WebGLRenderCompatibilityStatus.MajorPerformanceCaveat === compatibility.status);
   });
 
   it("should query proper render compatibility info assuming not enough texture units", () => {
@@ -244,6 +230,7 @@ describe("Render Compatibility", () => {
   it("detects MSAA hang bug", () => {
     const renderers = [
       [ "Mali-G71", true ],
+      [ "Mali-G72", true ],
       [ "Mali-G76", true ],
       [ "ANGLE (Intel HD Graphics 620 Direct3D11 vs_5_0 ps_5_0)",  false ],
       [ "Mali-G79", false ],

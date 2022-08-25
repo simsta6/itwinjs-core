@@ -28,25 +28,25 @@ export interface RelatedElementProps {
   relClassName?: string;
 }
 
-/** Properties of an [Element]($docs/bis/intro/element-fundamentals)
+/** Properties of an [Element]($docs/bis/guide/fundamentals/element-fundamentals)
  * @public
  * @extensions
  */
 export interface ElementProps extends EntityProps {
-  /** The Id of the [Model]($docs/bis/intro/model-fundamentals.md) containing this element */
+  /** The Id of the [Model]($docs/bis/guide/fundamentals/model-fundamentals.md) containing this element */
   model: Id64String;
-  /** The [Code]($docs/bis/intro/codes.md) for this element */
+  /** The [Code]($docs/bis/guide/fundamentals/codes.md) for this element */
   code: CodeProps;
   /** The Parent of this element, if defined. */
   parent?: RelatedElementProps;
-  /** A [FederationGuid]($docs/bis/intro/element-fundamentals.md#federationguid) assigned to this element.
+  /** A [FederationGuid]($docs/bis/guide/fundamentals/element-fundamentals.md#federationguid) assigned to this element.
    * @note  On insert, if this is a valid Guid, the value is preserved. If it is `undefined`, a new Guid is created. If it is an invalid Guid (e.g. Guid.empty), the
    * resultant element will have a `null` federationGuid. For update, `undefined` means "don't change."
    */
   federationGuid?: GuidString;
-  /** A [user-assigned label]($docs/bis/intro/element-fundamentals.md#userlabel) for this element. */
+  /** A [user-assigned label]($docs/bis/guide/fundamentals/element-fundamentals.md#userlabel) for this element. */
   userLabel?: string;
-  /** Optional [json properties]($docs/bis/intro/element-fundamentals.md#jsonproperties) of this element. */
+  /** Optional [json properties]($docs/bis/guide/fundamentals/element-fundamentals.md#jsonproperties) of this element. */
   jsonProperties?: any;
 }
 
@@ -364,6 +364,8 @@ export interface RenderTimelineLoadProps {
  * @extensions
  */
 export interface ElementLoadOptions {
+  /** if true, only load the members of [[ElementProps]], and no members from subclasses */
+  onlyBaseProperties?: boolean;
   /** If true, include the [[GeometryStreamProps]] for [[GeometricElementProps]] and [[GeometryPartProps]].
    * Geometry streams can consist of many megabytes worth of JSON, so they are omitted by default.
    */
@@ -385,6 +387,10 @@ export interface ElementLoadOptions {
  */
 export interface ElementLoadProps extends ElementLoadOptions {
   id?: Id64String;
+  /** The properties of the Code of the element to load.
+   * @note the Value member is required even though it is not declared so here. If no value is supplied, no element will ever be loaded.
+   * TODO: change to Required<CodeProps> in Version 4.0
+   */
   code?: CodeProps;
   federationGuid?: GuidString;
 }

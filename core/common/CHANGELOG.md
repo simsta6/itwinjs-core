@@ -1,6 +1,83 @@
 # Change Log - @itwin/core-common
 
-This log was last generated on Fri, 15 Apr 2022 13:49:25 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Aug 2022 19:08:02 GMT and should not be manually modified.
+
+## 3.3.0
+Thu, 18 Aug 2022 19:08:02 GMT
+
+### Updates
+
+- upgrade mocha to version 10.0.0
+- Update links to BIS documentation.
+- move reference of collectPredecessorIds from deprecated to new API getReferenceIds
+- Transport RPC requests over IPC when available.
+- Ensure IPC messages are processed sequentially on the backend
+- Remove AuthStatus from IModelError.
+- make getModelProps a GET request instead of a POST
+- Add cache headers to some rpc operations
+- Add option to quantize positions in GraphicsRequestProps.
+- FeatureOverrides now merges element overrides with script overrides and allows callers to specify criteria under which script overrides should be ignored.
+- DisplayStyleSettings.scheduleScriptProps is no longer deprecated. Add comparison methods for types in the RenderSchedule namespace.
+
+## 3.2.8
+Tue, 09 Aug 2022 15:52:41 GMT
+
+_Version update only_
+
+## 3.2.7
+Mon, 01 Aug 2022 13:36:56 GMT
+
+_Version update only_
+
+## 3.2.6
+Fri, 15 Jul 2022 19:04:43 GMT
+
+_Version update only_
+
+## 3.2.5
+Wed, 13 Jul 2022 15:45:52 GMT
+
+_Version update only_
+
+## 3.2.4
+Tue, 21 Jun 2022 18:06:33 GMT
+
+_Version update only_
+
+## 3.2.3
+Fri, 17 Jun 2022 15:18:39 GMT
+
+### Updates
+
+- Made public MapLayers related objects, methods.
+
+## 3.2.2
+Fri, 10 Jun 2022 16:11:36 GMT
+
+_Version update only_
+
+## 3.2.1
+Tue, 07 Jun 2022 15:02:56 GMT
+
+### Updates
+
+- Add option to quantize positions to GraphicsRequestProps.
+
+## 3.2.0
+Fri, 20 May 2022 13:10:54 GMT
+
+### Updates
+
+- Added new additionalTransformPath property to GeodeticDatums
+- Introducing StatusCategory
+- Fix bugs in GeometryStreamIterator in which values for properties like color, transparency, and displayPriority were being ignored.
+- Added "getMassPropertiesPerCandidate" RPC operation to IModelReadRpcInterface which returns mass properties for each candidate separately.
+- Added new grid file format identifier for OSTN02 and OSTN15
+- Add two new rpcinterfaces, hydrateViewState and getCustomViewState3dData
+- Improve edge generation for polyfaces that lack edge visibility information.
+- Add methods to validate ColorDefProps and color strings; fix failure to find duplicate color names.
+- Add support for Web RPC response compression.
+- Add extension API generation
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT

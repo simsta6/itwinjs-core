@@ -1,6 +1,71 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Fri, 15 Apr 2022 13:49:25 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Aug 2022 19:08:02 GMT and should not be manually modified.
+
+## 3.3.0
+Thu, 18 Aug 2022 19:08:02 GMT
+
+### Updates
+
+- upgrade mocha to version 10.0.0
+- Add ability to specify locale and format of Data and Time shown by timeline component.
+- Add children to render inside the node
+- Added 'PropertyFilterBuilder' component for building complex filters using properties list
+- Add support for undefined value in TypeConverter.
+- Avoid creating "NaN" string in numeric type converters.
+- Changed FloatTypeConverter and IntTypeConverter 'convertFromString' method to return 'undefined' if string is no a number.
+- Fix processing of widget container dragging to empty panel.
+- Update iTwinUI-react to 1.38.1
+
+## 3.2.8
+Tue, 09 Aug 2022 15:52:41 GMT
+
+_Version update only_
+
+## 3.2.7
+Mon, 01 Aug 2022 13:36:56 GMT
+
+_Version update only_
+
+## 3.2.6
+Fri, 15 Jul 2022 19:04:43 GMT
+
+_Version update only_
+
+## 3.2.5
+Wed, 13 Jul 2022 15:45:52 GMT
+
+_Version update only_
+
+## 3.2.4
+Tue, 21 Jun 2022 18:06:33 GMT
+
+_Version update only_
+
+## 3.2.3
+Fri, 17 Jun 2022 15:18:39 GMT
+
+_Version update only_
+
+## 3.2.2
+Fri, 10 Jun 2022 16:11:36 GMT
+
+### Updates
+
+- Fix `useTreeModel` returning stale model for the given model source
+
+## 3.2.1
+Tue, 07 Jun 2022 15:02:56 GMT
+
+_Version update only_
+
+## 3.2.0
+Fri, 20 May 2022 13:10:54 GMT
+
+### Updates
+
+- Add ability to pass parameters to UiItemsManager when loading items provider to specify what stages allow the provider to supply items.
+- Update UI to new UX design to allow only 2 sections of widgets per panel.
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT

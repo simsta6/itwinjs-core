@@ -85,7 +85,8 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
               iconSpec={iconSpec}
               onClick={() => setPopupOpen(!isPopupOpen)}
               opened={isPopupOpen}
-              isInFooterMode={props.isInFooterMode}
+              // eslint-disable-next-line deprecation/deprecation
+              isInFooterMode={props.isInFooterMode ?? true}
             />
           </div>
           <FooterPopup

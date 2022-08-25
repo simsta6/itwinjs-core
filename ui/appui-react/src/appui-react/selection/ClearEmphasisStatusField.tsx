@@ -65,7 +65,8 @@ export function ClearEmphasisStatusField(props: ClearEmphasisStatusFieldProps) {
   };
 
   return (
-    <Indicator toolTip={toolTip} className={classes} opened={false} onClick={clearEmphasize} iconSpec={<SvgVisibilityShow />}
-      isInFooterMode={props.isInFooterMode} />
+    <Indicator toolTip={toolTip} className={classes} opened={false} onClick={clearEmphasize} iconName="icon-visibility"
+      // eslint-disable-next-line deprecation/deprecation
+      isInFooterMode={props.isInFooterMode ?? true} />
   );
 }

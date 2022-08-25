@@ -109,6 +109,7 @@ export class ViewAttributesStatusField extends React.Component<StatusFieldProps,
   }
 
   public override render() {
+    // eslint-disable-next-line deprecation/deprecation
     const isOpen = this.props.openWidget === this._className;
     return (
       <>
@@ -122,7 +123,8 @@ export class ViewAttributesStatusField extends React.Component<StatusFieldProps,
             }>
             {this.getViewFlags()}
           </Dialog>}
-          isInFooterMode={this.props.isInFooterMode}
+          // eslint-disable-next-line deprecation/deprecation
+          isInFooterMode={this.props.isInFooterMode ?? true}
         />
       </>
     );

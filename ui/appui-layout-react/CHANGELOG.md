@@ -1,6 +1,73 @@
 # Change Log - @itwin/appui-layout-react
 
-This log was last generated on Fri, 15 Apr 2022 13:49:25 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Aug 2022 19:08:01 GMT and should not be manually modified.
+
+## 3.3.0
+Thu, 18 Aug 2022 19:08:01 GMT
+
+### Updates
+
+- upgrade mocha to version 10.0.0
+- Keep floating widget visible while dragged (with UI auto-hide enabled).
+- Fix an issue where a widget is not removed correctly in FLOATING_WIDGET_SEND_BACK action.
+- Fix styling of tab overflow menu.
+- Deprecated `isInFooterMode` for `FooterIndicator`, should always be considered true.
+- Fix widget duplication in send back action.
+- Fix processing of widget container dragging to empty panel.
+- Add hideWithUiWhenFloating prop to widgets so that an app can opt into hiding specific floating widgets when the UI automatically hides.
+- Save state of floating widgets when they are hidden
+- Add updated widget targets.
+- Update iTwinUI-react to 1.38.1
+- Allow tippy.js to close when tab is clicked.
+
+## 3.2.8
+Tue, 09 Aug 2022 15:52:41 GMT
+
+_Version update only_
+
+## 3.2.7
+Mon, 01 Aug 2022 13:36:56 GMT
+
+_Version update only_
+
+## 3.2.6
+Fri, 15 Jul 2022 19:04:43 GMT
+
+_Version update only_
+
+## 3.2.5
+Wed, 13 Jul 2022 15:45:52 GMT
+
+_Version update only_
+
+## 3.2.4
+Tue, 21 Jun 2022 18:06:33 GMT
+
+_Version update only_
+
+## 3.2.3
+Fri, 17 Jun 2022 15:18:39 GMT
+
+_Version update only_
+
+## 3.2.2
+Fri, 10 Jun 2022 16:11:36 GMT
+
+_Version update only_
+
+## 3.2.1
+Tue, 07 Jun 2022 15:02:56 GMT
+
+_Version update only_
+
+## 3.2.0
+Fri, 20 May 2022 13:10:54 GMT
+
+### Updates
+
+- Add ability to pass parameters to UiItemsManager when loading items provider to specify what stages allow the provider to supply items.
+- Add option to auto-collapse unpinned widget panels.
+- Animate tool settings appearance in the docked tool settings bar.
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT
