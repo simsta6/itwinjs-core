@@ -3,8 +3,6 @@
 trigger:
   branches:
     include:
-      - master
-      - release/*
       - ui/new-ci-job
   paths:
     include:
@@ -15,8 +13,6 @@ pr:
   drafts: false
   branches:
     include:
-      - master
-      - release/*
       - ui/new-ci-job
   paths:
     include:
