@@ -27,10 +27,10 @@ import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { GroupItemDef } from "../toolbar/GroupItem";
 import { RestoreFrontstageLayoutTool } from "./RestoreLayoutTool";
 import { UiFramework } from "../UiFramework";
+import cameraAnimationIcon from "@itwin/itwinui-icons/icons/camera-animation.svg";
+import cameraAnimationDisabledIcon from "@itwin/itwinui-icons/icons/camera-animation-disabled.svg";
 import svgGyroscope from "@bentley/icons-generic/icons/gyroscope.svg";
 import svgRotateLeft from "@bentley/icons-generic/icons/rotate-left.svg";
-import svgCameraAnimation from "@bentley/icons-generic/icons/camera-animation.svg";
-import svgCameraAnimationDisabled from "@bentley/icons-generic/icons/camera-animation-disabled.svg";
 import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
 import svgSelectionClear from "@bentley/icons-generic/icons/selection-clear.svg";
 import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
@@ -164,11 +164,18 @@ export class CoreTools {
       toolId: ViewToggleCameraTool.toolId,
       iconSpec: new ConditionalStringValue(() => {
         const activeContentControl = ContentViewManager.getActiveContentControl();
-        if (activeContentControl?.viewport?.view.is3d() && activeContentControl?.viewport?.isCameraOn)
-          return IconSpecUtilities.createWebComponentIconSpec(svgCameraAnimation);
-        return IconSpecUtilities.createWebComponentIconSpec(svgCameraAnimationDisabled);
+        if (activeContentControl?.viewport?.view.is3d() && activeContentControl?.viewport?.isCameraOn) {
+          return IconSpecUtilities.createWebComponentIconSpec(cameraAnimationIcon);
+        }
+        return IconSpecUtilities.createWebComponentIconSpec(cameraAnimationDisabledIcon);
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
-      label: ViewToggleCameraTool.flyover,
+      label: new ConditionalStringValue(() => {
+        const activeContentControl = ContentViewManager.getActiveContentControl();
+        if (activeContentControl?.viewport?.view.is3d() && activeContentControl?.viewport?.isCameraOn) {
+          return UiFramework.translate("tools.View.ToggleCamera.turnOffFlyover");
+        }
+        return UiFramework.translate("tools.View.ToggleCamera.turnOnFlyover");
+      }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
       description: ViewToggleCameraTool.description,
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl = ContentViewManager.getActiveContentControl();

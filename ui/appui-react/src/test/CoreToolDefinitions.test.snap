@@ -229,7 +229,15 @@ exports[`CoreToolDefinitions ToolWidget should render correctly with Core Tool D
                 },
                 "_description": "",
                 "_isActive": false,
-                "_label": "",
+                "_label": ConditionalStringValue {
+                  "_value": "tools.View.ToggleCamera.turnOnFlyover",
+                  "stringGetter": [Function],
+                  "syncEventIds": Array [
+                    "activecontentchanged",
+                    "activeviewportchanged",
+                    "viewstatechanged",
+                  ],
+                },
                 "_onItemExecuted": undefined,
                 "_tooltip": "",
                 "badgeType": undefined,
@@ -649,7 +657,15 @@ exports[`CoreToolDefinitions ToolWidget should render correctly with Core Tool D
                     },
                     "_description": "",
                     "_isActive": false,
-                    "_label": "",
+                    "_label": ConditionalStringValue {
+                      "_value": "tools.View.ToggleCamera.turnOnFlyover",
+                      "stringGetter": [Function],
+                      "syncEventIds": Array [
+                        "activecontentchanged",
+                        "activeviewportchanged",
+                        "viewstatechanged",
+                      ],
+                    },
                     "_onItemExecuted": undefined,
                     "_tooltip": "",
                     "badgeType": undefined,
@@ -1027,7 +1043,15 @@ exports[`CoreToolDefinitions ToolWidgetComposer should render correctly with Cor
                 "testFunc": [Function],
               },
               "itemPriority": 90,
-              "label": "",
+              "label": ConditionalStringValue {
+                "_value": "tools.View.ToggleCamera.turnOnFlyover",
+                "stringGetter": [Function],
+                "syncEventIds": Array [
+                  "activecontentchanged",
+                  "activeviewportchanged",
+                  "viewstatechanged",
+                ],
+              },
             },
             Object {
               "badgeType": undefined,
