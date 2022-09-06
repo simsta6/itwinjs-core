@@ -146,8 +146,24 @@ Object {
   "floatingWidgets": Object {
     "allIds": Array [
       "w1",
+      "e1c36b5e-566b-4c1c-b2f1-62c73c5872e4",
     ],
     "byId": Object {
+      "e1c36b5e-566b-4c1c-b2f1-62c73c5872e4": Object {
+        "bounds": Object {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0,
+        },
+        "hidden": false,
+        "home": Object {
+          "side": "left",
+          "widgetId": undefined,
+          "widgetIndex": 0,
+        },
+        "id": "e1c36b5e-566b-4c1c-b2f1-62c73c5872e4",
+      },
       "w1": Object {
         "bounds": Object {
           "bottom": 0,
@@ -230,9 +246,21 @@ Object {
     "width": 0,
   },
   "tabs": Object {
+    "2a57e796-0b2f-4d37-8486-bde17ee1dc7c": Object {
+      "allowedPanelTargets": undefined,
+      "id": "2a57e796-0b2f-4d37-8486-bde17ee1dc7c",
+      "preferredFloatingWidgetSize": undefined,
+      "userSized": undefined,
+    },
     "t1": Object {
       "allowedPanelTargets": undefined,
       "id": "t1",
+      "preferredFloatingWidgetSize": undefined,
+      "userSized": undefined,
+    },
+    "t2": Object {
+      "allowedPanelTargets": undefined,
+      "id": "t2",
       "preferredFloatingWidgetSize": undefined,
       "userSized": undefined,
     },
@@ -241,6 +269,14 @@ Object {
     "type": "docked",
   },
   "widgets": Object {
+    "e1c36b5e-566b-4c1c-b2f1-62c73c5872e4": Object {
+      "activeTabId": "t2",
+      "id": "e1c36b5e-566b-4c1c-b2f1-62c73c5872e4",
+      "minimized": false,
+      "tabs": Array [
+        "t2",
+      ],
+    },
     "w1": Object {
       "activeTabId": "t1",
       "id": "w1",
