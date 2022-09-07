@@ -3,19 +3,47 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import * as path from "path";
-import * as Yargs from "yargs";
+import { IModelDb, IModelHost, IModelJsFs, KnownLocations, PhysicalModel, SnapshotDb, SpatialCategory, StandaloneDb, Subject } from "@itwin/core-backend";
 import { assert, Guid, Logger, LogLevel } from "@itwin/core-bentley";
-import { ProjectsAccessClient } from "@itwin/projects-client";
-import { IModelDb, IModelHost, IModelJsFs, SnapshotDb, StandaloneDb } from "@itwin/core-backend";
-import { BriefcaseIdValue, ChangesetId, ChangesetProps, IModelVersion } from "@itwin/core-common";
+import { BriefcaseIdValue, ChangesetId, ChangesetProps, Code, CreateEmptySnapshotIModelProps, IModel, IModelVersion, PhysicalElementProps } from "@itwin/core-common";
 import { TransformerLoggerCategory } from "@itwin/core-transformer";
 import { NamedVersion } from "@itwin/imodels-client-authoring";
+import { ProjectsAccessClient } from "@itwin/projects-client";
+import * as dotenv from "dotenv";
+import * as dotenvExpand from "dotenv-expand";
+import * as path from "path";
+import * as Yargs from "yargs";
 import { ElementUtils } from "./ElementUtils";
 import { IModelHubUtils, IModelTransformerTestAppHost } from "./IModelHubUtils";
 import { loggerCategory, Transformer, TransformerOptions } from "./Transformer";
-import * as dotenv from "dotenv";
-import * as dotenvExpand from "dotenv-expand";
+
+const dBOutputDir = path.join(KnownLocations.tmpdir, Guid.createValue());
+
+class InBuildTestSetup {
+  public static createEmptySnapshotDbFile(
+    fileName: string,
+    options: CreateEmptySnapshotIModelProps
+  ): SnapshotDb {
+    const sourceDbFile: string = InBuildTestSetup.prepareOutputFile(fileName);
+    return SnapshotDb.createEmpty(sourceDbFile, options);
+  }
+
+  public static openSnapshotDbFile(
+    fileName: string,
+    options: CreateEmptySnapshotIModelProps
+  ): SnapshotDb {
+    const sourceDbFile: string = InBuildTestSetup.prepareOutputFile(fileName);
+    return SnapshotDb.openFile(sourceDbFile, options);
+  }
+
+  public static prepareOutputFile(fileName: string): string {
+    if (!IModelJsFs.existsSync(dBOutputDir)) IModelJsFs.mkdirSync(dBOutputDir);
+
+    const outputFile = path.join(dBOutputDir, fileName);
+
+    return outputFile;
+  }
+}
 
 void (async () => {
   try {
@@ -204,6 +232,12 @@ void (async () => {
     let iTwinAccessClient: ProjectsAccessClient | undefined;
     let sourceDb: IModelDb;
     let targetDb: IModelDb;
+    sourceDb = InBuildTestSetup.createEmptySnapshotDbFile("sourceIModel.bim", {
+      rootSubject: { name: "Source Model" },
+    });
+    targetDb = InBuildTestSetup.createEmptySnapshotDbFile("targetIModel.bim", {
+      rootSubject: { name: "Target Model" },
+    });
     const processChanges = args.sourceStartChangesetIndex || args.sourceStartChangesetId;
 
     if (args.sourceITwinId || args.targetITwinId) {
@@ -261,10 +295,10 @@ void (async () => {
       });
     } else {
       // source is a local snapshot file
-      assert(undefined !== args.sourceFile);
-      const sourceFile = path.normalize(args.sourceFile);
-      Logger.logInfo(loggerCategory, `sourceFile=${sourceFile}`);
-      sourceDb = SnapshotDb.openFile(sourceFile);
+      // assert(undefined !== args.sourceFile);
+      // const sourceFile = path.normalize(args.sourceFile);
+      // Logger.logInfo(loggerCategory, `sourceFile=${sourceFile}`);
+      // sourceDb = SnapshotDb.openFile(sourceFile);
     }
 
     if (args.validation) {
@@ -323,9 +357,9 @@ void (async () => {
         ecefLocation: sourceDb.ecefLocation,
       });
     } else {
-      // target is a local standalone file
-      assert(undefined !== args.targetFile);
-      targetDb = StandaloneDb.openFile(args.targetFile);
+      // // target is a local standalone file
+      // assert(undefined !== args.targetFile);
+      // targetDb = StandaloneDb.openFile(args.targetFile);
     }
 
     if (args.logProvenanceScopes) {
@@ -368,6 +402,34 @@ void (async () => {
       );
       transformer.dispose();
     } else {
+
+      const sourceDbSchemaString = "<?xml version= \"1.0\" encoding= \"UTF-8\"?>\n<ECSchema schemaName= \"IFCDynamic\" alias= \"IFC\" version= \"100.04.05\" xmlns= \"http://www.bentley.com/schemas/Bentley.ECXML.3.2\">    \n    <ECSchemaReference name= \"BisCore\" version= \"01.00.14\" alias= \"bis\" />    \n    <ECSchemaReference name= \"Units\" version= \"01.00.07\" alias= \"u\" />    \n    <ECCustomAttributes>        \n        <DynamicSchema xmlns= \"CoreCustomAttributes.01.00.03\" />        \n    </ECCustomAttributes>    \n    <ECEntityClass typeName= \"A\" displayLabel= \"A\">        \n        <BaseClass>bis:PhysicalElement</BaseClass>        \n </ECEntityClass> \n <ECEntityClass typeName= \"B\" displayLabel= \"B\"> \n <BaseClass>bis:PhysicalElement</BaseClass> \n </ECEntityClass></ECSchema>";
+      await sourceDb.importSchemaStrings([sourceDbSchemaString]);
+
+      const sourceSubjectId = Subject.insert(sourceDb, IModel.rootSubjectId, "S1");
+      const physicalModelId = PhysicalModel.insert(sourceDb, sourceSubjectId, "M1");
+      const spatialCategoryId = SpatialCategory.insert(sourceDb, IModel.dictionaryId, "C1", {});
+
+      const physicalElementA: PhysicalElementProps = {
+        classFullName: "IFC.A",
+        model: physicalModelId,
+        category: spatialCategoryId,
+        code: new Code({ scope: physicalModelId, spec: "0x1", value: "PhysicalA" }),
+        userLabel: "PhysicalA",
+      };
+      const physicalElementB: PhysicalElementProps = {
+        classFullName: "IFCDynamic.B",
+        model: physicalModelId,
+        category: spatialCategoryId,
+        code: new Code({ scope: physicalModelId, spec: "0x1", value: "PhysicalB" }),
+        userLabel: "PhysicalB",
+      };
+
+      sourceDb.elements.insertElement(physicalElementA);
+      sourceDb.elements.insertElement(physicalElementB);
+      sourceDb.saveChanges();
+
+      Logger.logInfo(loggerCategory, "Transform all");
       await Transformer.transformAll(sourceDb, targetDb, transformerOptions);
     }
 
@@ -384,8 +446,11 @@ void (async () => {
 
     sourceDb.close();
     targetDb.close();
+    Logger.logInfo(loggerCategory, "Heppy ending");
     await IModelHost.shutdown();
   } catch (error: any) {
     process.stdout.write(`${error.message}\n${error.stack}`);
+  } finally {
+    IModelJsFs.removeSync(dBOutputDir);
   }
 })();

@@ -6,11 +6,12 @@
 import { AccessToken, assert, DbResult, Id64, Id64Array, Id64Set, Id64String, Logger } from "@itwin/core-bentley";
 import {
   Category, CategorySelector, DisplayStyle, DisplayStyle3d, ECSqlStatement, Element, ElementRefersToElements, GeometricModel3d, GeometryPart,
-  IModelDb, ModelSelector, PhysicalModel, PhysicalPartition, Relationship, SpatialCategory,
+  IModelDb, IModelJsFs, ModelSelector, PhysicalModel, PhysicalPartition, Relationship, SpatialCategory,
   SpatialViewDefinition, SubCategory, ViewDefinition,
 } from "@itwin/core-backend";
 import { IModelImporter, IModelTransformer, IModelTransformOptions } from "@itwin/core-transformer";
 import { ElementProps, IModel } from "@itwin/core-common";
+import path = require("path");
 
 export const loggerCategory = "imodel-transformer";
 
@@ -30,6 +31,26 @@ export class Transformer extends IModelTransformer {
   private _numSourceRelationshipsProcessed = 0;
   private _startTime = new Date();
   private _targetPhysicalModelId = Id64.invalid; // will be valid when PhysicalModels are being combined
+
+  public override async processSchemas(): Promise<void> {
+    try {
+      IModelJsFs.mkdirSync(this._schemaExportDir);
+      await this.exporter.exportSchemas();
+      const exportedSchemaFiles = IModelJsFs.readdirSync(this._schemaExportDir)
+        .filter((s) => !s.endsWith("IFCDynamic.100.04.05.schema.xml")); // to exclude custom schema
+      if (exportedSchemaFiles.length === 0)
+        return;
+
+      const schemaFullPaths = exportedSchemaFiles.map((s) => path.join(this._schemaExportDir, s));
+
+      const schemaWithoutBClass = "<?xml version= \"1.0\" encoding= \"UTF-8\"?>\n<ECSchema schemaName= \"IFCDynamic\" alias= \"IFC\" version= \"100.04.05\" xmlns= \"http://www.bentley.com/schemas/Bentley.ECXML.3.2\">    \n    <ECSchemaReference name= \"BisCore\" version= \"01.00.14\" alias= \"bis\" />    \n    <ECSchemaReference name= \"Units\" version= \"01.00.07\" alias= \"u\" />    \n    <ECCustomAttributes>        \n        <DynamicSchema xmlns= \"CoreCustomAttributes.01.00.03\" />        \n    </ECCustomAttributes>    \n    <ECEntityClass typeName= \"A\" displayLabel= \"A\">        \n        <BaseClass>bis:PhysicalElement</BaseClass>        \n </ECEntityClass> </ECSchema>";
+      await this.targetDb.importSchemaStrings([schemaWithoutBClass]);
+
+      return await this.targetDb.importSchemas(schemaFullPaths);
+    } finally {
+      IModelJsFs.removeSync(this._schemaExportDir);
+    }
+  }
 
   public static async transformAll(sourceDb: IModelDb, targetDb: IModelDb, options?: TransformerOptions): Promise<void> {
     // might need to inject RequestContext for schemaExport.
