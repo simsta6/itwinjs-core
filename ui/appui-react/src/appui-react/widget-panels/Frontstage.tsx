@@ -1047,7 +1047,7 @@ function hideWidget(state: NineZoneState, widgetDef: WidgetDef) {
     widgetDef.tabLocation = {
       side: floatingWidget.home.side,
       tabIndex: floatingWidget.home.widgetIndex,
-      widgetId: widgetDef.id,
+      widgetId: floatingWidget.id,
       widgetIndex: floatingWidget.home.widgetIndex,
       floatingWidget,
     };
