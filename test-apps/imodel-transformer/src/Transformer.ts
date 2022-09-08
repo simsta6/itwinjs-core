@@ -37,16 +37,16 @@ export class Transformer extends IModelTransformer {
       IModelJsFs.mkdirSync(this._schemaExportDir);
       await this.exporter.exportSchemas();
       const exportedSchemaFiles = IModelJsFs.readdirSync(this._schemaExportDir)
-        .filter((s) => !s.endsWith("IFCDynamic.100.04.05.schema.xml")); // to exclude custom schema
+        .filter((s) => !s.endsWith("IFCDynamic.100.04.05.ecschema.xml")); // to exclude custom schema
       if (exportedSchemaFiles.length === 0)
         return;
 
       const schemaFullPaths = exportedSchemaFiles.map((s) => path.join(this._schemaExportDir, s));
 
       const schemaWithoutBClass = "<?xml version= \"1.0\" encoding= \"UTF-8\"?>\n<ECSchema schemaName= \"IFCDynamic\" alias= \"IFC\" version= \"100.04.05\" xmlns= \"http://www.bentley.com/schemas/Bentley.ECXML.3.2\">    \n    <ECSchemaReference name= \"BisCore\" version= \"01.00.14\" alias= \"bis\" />    \n    <ECSchemaReference name= \"Units\" version= \"01.00.07\" alias= \"u\" />    \n    <ECCustomAttributes>        \n        <DynamicSchema xmlns= \"CoreCustomAttributes.01.00.03\" />        \n    </ECCustomAttributes>    \n    <ECEntityClass typeName= \"A\" displayLabel= \"A\">        \n        <BaseClass>bis:PhysicalElement</BaseClass>        \n </ECEntityClass> </ECSchema>";
-      await this.targetDb.importSchemaStrings([schemaWithoutBClass]);
+      await this.targetDb.importSchemas(schemaFullPaths);
 
-      return await this.targetDb.importSchemas(schemaFullPaths);
+      return await this.targetDb.importSchemaStrings([schemaWithoutBClass]);
     } finally {
       IModelJsFs.removeSync(this._schemaExportDir);
     }
@@ -276,6 +276,12 @@ export class Transformer extends IModelTransformer {
     // if (sourceElement.id === "0x0" || sourceElement.getDisplayLabel() === "xxx") { // use logging to find something unique about the problem element
     //   Logger.logInfo(progressLoggerCategory, "Found problem element"); // set breakpoint here
     // }
+
+    if (sourceElement.classFullName === "IFCDynamic:B") {
+      // Add breakpoint here
+      sourceElement;
+      // It will fail after here
+    }
 
     const elementProps = super.onTransformElement(sourceElement);
 

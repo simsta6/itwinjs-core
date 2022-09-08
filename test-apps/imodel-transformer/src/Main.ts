@@ -411,7 +411,7 @@ void (async () => {
       const spatialCategoryId = SpatialCategory.insert(sourceDb, IModel.dictionaryId, "C1", {});
 
       const physicalElementA: PhysicalElementProps = {
-        classFullName: "IFC.A",
+        classFullName: "IFCDynamic.A",
         model: physicalModelId,
         category: spatialCategoryId,
         code: new Code({ scope: physicalModelId, spec: "0x1", value: "PhysicalA" }),
