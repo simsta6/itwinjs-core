@@ -276,7 +276,14 @@ export class Transformer extends IModelTransformer {
     // if (sourceElement.id === "0x0" || sourceElement.getDisplayLabel() === "xxx") { // use logging to find something unique about the problem element
     //   Logger.logInfo(progressLoggerCategory, "Found problem element"); // set breakpoint here
     // }
-    return super.onTransformElement(sourceElement);
+
+    const elementProps = super.onTransformElement(sourceElement);
+
+    if (sourceElement.classFullName === "IFCDynamic:B") {
+      elementProps.classFullName = "IFCDynamic:A";
+    }
+
+    return elementProps;
   }
 
   public override shouldExportRelationship(relationship: Relationship): boolean {
