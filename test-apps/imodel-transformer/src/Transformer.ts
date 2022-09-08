@@ -279,7 +279,7 @@ export class Transformer extends IModelTransformer {
 
     const elementProps = super.onTransformElement(sourceElement);
 
-    if (sourceElement.classFullName === "IFCDynamic:B") {
+    if (elementProps.classFullName === "IFCDynamic:B") {
       elementProps.classFullName = "IFCDynamic:A";
     }
 
